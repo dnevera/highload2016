@@ -37,8 +37,33 @@ public class ArrayOperator {
     }
     
     public func configure(commandEncoder:MTLComputeCommandEncoder){}
+
+    public func flush() {
+        guard let buffer = arrayBuffer else { return }
+
+        let pointer = OpaquePointer(buffer.contents())
+        
+        //
+        // V.1
+        //
+        //let bsize   = MemoryLayout<Float>.size * array.count
+        //memset(&array, 0, bsize)
+        //memcpy(&array, UnsafePointer<Float>(pointer), bsize)
+        
+        //
+        // V.2
+        //
+        vDSP_vclr(&array, 1, vDSP_Length(array.count))
+        //
+        // V.2.1
+        //
+        //cblas_scopy(Int32(array.count), UnsafePointer<Float>(pointer), 1, &array, 1)
+        //
+        //
+        vDSP_vadd(UnsafePointer<Float>(pointer), 1, array, 1, &array, 1, vDSP_Length(array.count))
+    }
     
-    public func run(){
+    public func run(complete:Bool = true){
         if let buffer = arrayBuffer {
             
             function.execute(
@@ -51,27 +76,11 @@ public class ArrayOperator {
                     configure(commandEncoder: commandEncoder)
                     
                 },
-                complete: { (commandEncoder) in                    
-                    let pointer = OpaquePointer(buffer.contents())
+                complete: { (commandEncoder) in
                     
-                    //
-                    // V.1
-                    //
-                    //let bsize   = MemoryLayout<Float>.size * array.count
-                    //memset(&array, 0, bsize)
-                    //memcpy(&array, UnsafePointer<Float>(pointer), bsize)
+                    guard complete else {return}
                     
-                    //
-                    // V.2
-                    //
-                    vDSP_vclr(&array, 1, vDSP_Length(array.count))
-                    //
-                    // V.2.1
-                    //
-                    //cblas_scopy(Int32(array.count), UnsafePointer<Float>(pointer), 1, &array, 1)
-                    //
-                    //
-                    vDSP_vadd(UnsafePointer<Float>(pointer), 1, array, 1, &array, 1, vDSP_Length(array.count))
+                    flush()
             })
         }
     }

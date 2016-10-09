@@ -8,6 +8,7 @@
 
 import UIKit
 import Accelerate
+import simd
 
 
 public class RandomNoise:ArrayOperator{
@@ -34,6 +35,57 @@ public class BitonicSorter:ArrayOperator{
     public init(){
         super.init(name: "bitonicSortKernel")
     }
+    
+    func B2(){
+        
+        var asc=false
+        let n = function.threads.width
+        
+        var i = 0
+        for _ in 0..<n/2 {
+            
+            if((array[i]<array[i+1])==asc){
+                let t = array[i]
+                array[i] = array[i+1]
+                array[i+1]=t
+            }
+            
+            asc = !asc
+            i += 2
+        }
+    }
+    
+    lazy var blockBuffer:MTLBuffer? = self.function.device?.makeBuffer(
+        length: MemoryLayout<simd.uint>.size,
+        options: .cpuCacheModeWriteCombined)
+
+    lazy var indexBuffer:MTLBuffer? = self.function.device?.makeBuffer(
+        length: MemoryLayout<simd.uint>.size,
+        options: .cpuCacheModeWriteCombined)
+
+    public override func configure(commandEncoder: MTLComputeCommandEncoder) {
+        commandEncoder.setBuffer(blockBuffer, offset: 0, at: 2)
+        commandEncoder.setBuffer(indexBuffer, offset: 0, at: 3)
+    }
+
+    public override func run(complete: Bool=false) {
+        let blocks = array.count/function.threads.width
+        function.threadgroups.width = blocks
+        var k:simd.uint = 2
+        while  k <= simd.uint(array.count) {
+            var j:simd.uint = k>>1
+            while j>0 {
+                memcpy(indexBuffer?.contents(), &j, (indexBuffer?.length)!)
+                memcpy(blockBuffer?.contents(), &k, (blockBuffer?.length)!)
+                super.run(complete:false)
+                j >>= 1
+            }
+            k <<= 1
+        }
+
+        flush()
+
+    }
 }
 
 class ViewController: UIViewController {
@@ -43,8 +95,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let count     = 1024 * 1024 * 8
-        let times     = 3
+        let count     = 512
+        let times     = 1
         
         let randomGPU = RandomNoise(count: count)
 
@@ -69,14 +121,20 @@ class ViewController: UIViewController {
         
         print(" GPU.time = \((t2-t1)/TimeInterval(times)), CPU.time = \((t3-t2)/TimeInterval(times))")
         
+        var revers_array = [Float]()
+        
+        for i in 0..<count {
+            revers_array.append(Float(count-i-1))
+        }
+        
         let bitonicSorter = BitonicSorter()
 
-        bitonicSorter.array = randomGPU.array
+        bitonicSorter.array = revers_array //randomGPU.array
         
         bitonicSorter.run()
         
-        for i in 0..<randomGPU.array.count {
-           //print(i,randomGPU.array[i])
+        for i in 0..<bitonicSorter.array.count {
+           print(i,bitonicSorter.array[i])
         }
     }
     

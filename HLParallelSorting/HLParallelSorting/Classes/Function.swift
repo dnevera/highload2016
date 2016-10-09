@@ -44,7 +44,7 @@ public class Function {
         }
     }()
     
-    lazy var threads:MTLSize = {
+    public lazy var threads:MTLSize = {
         var max=8
         if let p = self.pipeline {
             max = p.maxTotalThreadsPerThreadgroup
@@ -52,7 +52,7 @@ public class Function {
         return MTLSize(width: max, height: 1,depth: 1)
     }()
 
-    let threadgroups = MTLSizeMake(1,1,1)
+    public var threadgroups = MTLSizeMake(1,1,1)
     
     var queue =  DispatchQueue(label: "com.hl.function")
     
@@ -64,7 +64,9 @@ public class Function {
                 commandEncoder.setComputePipelineState(pipeline!)
                 
                 closure(commandEncoder)
-                                
+                
+                print("threadgroups = \(threadgroups) threads = \(threads)")
+                
                 commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threads)
                 commandEncoder.endEncoding()
                 
