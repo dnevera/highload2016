@@ -18,7 +18,9 @@ public class RandomNoise:ArrayOperator{
         }
     }
     
-    lazy var timerBuffer:MTLBuffer? = self.function.device?.makeBuffer(length: MemoryLayout<Float>.size, options: .cpuCacheModeWriteCombined)
+    lazy var timerBuffer:MTLBuffer? = self.function.device?.makeBuffer(
+        length: MemoryLayout<Float>.size,
+        options: .cpuCacheModeWriteCombined)
 
     public override func configure(commandEncoder: MTLComputeCommandEncoder) {
         let timer  = UInt32(modf(NSDate.timeIntervalSinceReferenceDate).0)
@@ -41,35 +43,40 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let count      = 1024 * 1024
+        let count     = 1024 * 1024 * 8
+        let times     = 3
         
         let randomGPU = RandomNoise(count: count)
 
         let t1 = NSDate.timeIntervalSinceReferenceDate
 
-        randomGPU.run()
+        for _ in 0..<times {
+            randomGPU.run()
+        }
         
         var randomCPU = [Float](repeating:0, count: count)
         
         let t2 = NSDate.timeIntervalSinceReferenceDate
 
-        for i in 0..<count{
-            let timer  = UInt32(modf(NSDate.timeIntervalSinceReferenceDate).0)
-            randomCPU[i] = Float(arc4random_uniform(timer))/Float(timer)
+        for _ in 0..<times {
+            for i in 0..<count{
+                let timer  = UInt32(modf(NSDate.timeIntervalSinceReferenceDate).0)
+                randomCPU[i] = Float(arc4random_uniform(timer))/Float(timer)
+            }
         }
         
         let t3 = NSDate.timeIntervalSinceReferenceDate
         
-        print(" GPU.time = \(t2-t1), CPU.time = \(t3-t2)")
+        print(" GPU.time = \((t2-t1)/TimeInterval(times)), CPU.time = \((t3-t2)/TimeInterval(times))")
         
         let bitonicSorter = BitonicSorter()
 
-        bitonicSorter.array = randomCPU
+        bitonicSorter.array = randomGPU.array
         
         bitonicSorter.run()
         
-        for a in bitonicSorter.array {
-           //print(a)
+        for i in 0..<randomGPU.array.count {
+           //print(i,randomGPU.array[i])
         }
     }
     

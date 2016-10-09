@@ -51,24 +51,29 @@ public class Function {
         }
         return MTLSize(width: max, height: 1,depth: 1)
     }()
+
+    let threadgroups = MTLSizeMake(1,1,1)
     
+    var queue =  DispatchQueue(label: "com.hl.function")
     
-    public final func execute(size:Int, closure: Execution) {
+    public final func execute(size:Int, closure: Execution, complete: Execution) {
         if let commandBuffer = commandBuffer {
-            
-            let commandEncoder = commandBuffer.makeComputeCommandEncoder()
-            
-            commandEncoder.setComputePipelineState(pipeline!)
-            
-            closure(commandEncoder)
-            
-            let threadgroups = MTLSizeMake((size)/threads.width,1,1)
-                        
-            commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threads)
-            commandEncoder.endEncoding()
-            
-            commandBuffer.commit()
-            commandBuffer.waitUntilCompleted()
+            queue.sync {
+                let commandEncoder = commandBuffer.makeComputeCommandEncoder()
+                
+                commandEncoder.setComputePipelineState(pipeline!)
+                
+                closure(commandEncoder)
+                                
+                commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threads)
+                commandEncoder.endEncoding()
+                
+                commandBuffer.commit()
+                commandBuffer.waitUntilCompleted()
+                                
+                complete(commandEncoder)
+
+            }
         }
     }
 }
