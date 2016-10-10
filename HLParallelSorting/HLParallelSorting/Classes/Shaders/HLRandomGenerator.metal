@@ -109,7 +109,8 @@ kernel void randomKernel(
                          const device uint   &size  [[buffer(1)]],
                          const device float  &timer [[buffer(2)]],
                          uint tid      [[thread_position_in_grid]],
-                         uint threads  [[threadgroups_per_grid]]
+                         uint threads [[threads_per_threadgroup]]
+                         //uint threads  [[threadgroups_per_grid]]
                          )
 {
     for (uint i = 0; i<size; i+=threads){
@@ -117,5 +118,6 @@ kernel void randomKernel(
         float4 point = float4(id);
         float4 noise = snoise(timer,point);
         array[id] = dot(point,noise);
+        //array[id] = id;
     }
 }

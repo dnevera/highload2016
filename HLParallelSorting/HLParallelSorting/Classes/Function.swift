@@ -65,7 +65,7 @@ public class Function {
                 
                 closure(commandEncoder)
                 
-                print("threadgroups = \(threadgroups) threads = \(threads)")
+                //print("threadgroups = \(threadgroups) threads = \(threads)")
                 
                 commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threads)
                 commandEncoder.endEncoding()

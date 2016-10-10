@@ -19,8 +19,8 @@ public class ArrayOperator {
 
                 arrayBuffer = self.function.device?.makeBuffer(
                     bytes: self.array,
-                    length: MemoryLayout.size(ofValue: self.array),
-                    options: .cpuCacheModeWriteCombined /*MTLResourceOptions()*/)
+                    length: MemoryLayout<Float>.size * self.array.count,
+                    options: .storageModeShared /*MTLResourceOptions()*/)
                 
                 var size = array.count
                 
