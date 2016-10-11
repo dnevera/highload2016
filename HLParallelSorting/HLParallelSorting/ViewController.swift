@@ -10,96 +10,14 @@ import UIKit
 import Accelerate
 import simd
 
+let log = false
 
-public class BitonicSorter:ArrayOperator{
-    public init(){
-        super.init(name: "bitonicSortKernel")
-    }
-
-    lazy var stageBuffer:MTLBuffer? = self.function.device?.makeBuffer(
-        length: MemoryLayout<simd.uint>.size,
-        options: .cpuCacheModeWriteCombined)
-
-    lazy var passOfStageBuffer:MTLBuffer? = self.function.device?.makeBuffer(
-        length: MemoryLayout<simd.uint>.size,
-        options: .cpuCacheModeWriteCombined)
-
-    lazy var directionBuffer:MTLBuffer? = self.function.device?.makeBuffer(
-        length: MemoryLayout<simd.uint>.size,
-        options: .cpuCacheModeWriteCombined)
-    
-    var indicesBuffer:MTLBuffer?
-    
-    var indices:[int4] = [int4]()
-
-    public override var array: [Float] {
-        didSet{
-            
-            indices.removeAll()
-            
-            for i in 0..<array.count/4 {
-                let index = i * 4
-                indices.append(int4(index+0,index+1,index+2,index+3))
-            }
-            
-            indicesBuffer = self.function.device?.makeBuffer(
-                bytes: indices,
-                length: MemoryLayout<int4>.size * indices.count,
-                options: MTLResourceOptions() /*.storageModeShared*/)
-        }
-    }
-    
-    public override func configure(commandEncoder: MTLComputeCommandEncoder) {
-        commandEncoder.setBuffer(indicesBuffer,     offset: 0, at: 2)
-        commandEncoder.setBuffer(stageBuffer,       offset: 0, at: 3)
-        commandEncoder.setBuffer(passOfStageBuffer, offset: 0, at: 4)
-        commandEncoder.setBuffer(directionBuffer,   offset: 0, at: 5)
-    }
-    func bitonicSort() {
-        
-        var passNum:simd.uint = 0
-        let arraySize = simd.uint(array.count)
-        let numStages = Int(log2(Float(arraySize))-1)
-        
-        var direction = simd.uint(1)
-        
-        function.threads.width = 32
-        //function.threadgroups.width = array.count/function.threads.width
-        
-        for stage in 0..<numStages {
-            var passOfStage = stage
-            var stageUint = simd.uint(stage)
-            while passOfStage>=0 {
-                
-                print("numStages = \(numStages) \(log2(Float(arraySize))-1), stage = \(stage), passNum = \(passNum) passOfStage = \(passOfStage)")
-                
-                memcpy(stageBuffer?.contents(), &stageUint, (stageBuffer?.length)!)
-                memcpy(passOfStageBuffer?.contents(), &passOfStage, (passOfStageBuffer?.length)!)
-                memcpy(directionBuffer?.contents(), &direction, (directionBuffer?.length)!)
-                
-                let gsz = arraySize / 2 / 4
-                
-                function.threadgroups.width = (Int(passOfStage==0 ? gsz : gsz << 1))
-                
-                super.run(complete:false)
-                
-                passOfStage -= 1
-                passNum     += 1
-            }
-        }
-        
-        //flush()
-        
-        //let pointer = OpaquePointer(indicesBuffer?.contents())
-        let bsize   = MemoryLayout<int4>.size * indices.count
-        memset(&indices, 0, bsize)
-        memcpy(&indices, indicesBuffer?.contents(), bsize)
-    }
-    
-    public override func run(complete: Bool=false) {
-        bitonicSort()
-    }
+func quicksort<T: Comparable>(_ a: [T]) -> [T] {
+    guard a.count > 1 else { return a }
+    let x = a[a.count/2]
+    return quicksort(a.filter { $0 < x }) + a.filter { $0 == x } + quicksort(a.filter { $0 > x })
 }
+
 
 class ViewController: UIViewController {
     
@@ -107,22 +25,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
-        let count     = 512
-        let times     = 1
+        let count     = 1024 * 1024
+        let times     = 3
         
         let randomGPU = RandomNoise(count: count)
-
-        let t1 = NSDate.timeIntervalSinceReferenceDate
-
+        
+        let t10 = NSDate.timeIntervalSinceReferenceDate
+        
+        print("# ... GPU random processing")
         for _ in 0..<times {
             randomGPU.run()
         }
         
+        let t11 = NSDate.timeIntervalSinceReferenceDate
+        
         var randomCPU = [Float](repeating:0, count: count)
         
-        let t2 = NSDate.timeIntervalSinceReferenceDate
-
+        let t20 = NSDate.timeIntervalSinceReferenceDate
+        
+        print("# ... CPU random processing")
         for _ in 0..<times {
             for i in 0..<count{
                 let timer  = UInt32(modf(NSDate.timeIntervalSinceReferenceDate).0)
@@ -130,41 +51,52 @@ class ViewController: UIViewController {
             }
         }
         
-        let t3 = NSDate.timeIntervalSinceReferenceDate
+        let t21 = NSDate.timeIntervalSinceReferenceDate
         
-        print(" GPU.time = \((t2-t1)/TimeInterval(times)), CPU.time = \((t3-t2)/TimeInterval(times))")
+        print("# Random of {...n} ∈ ℝ:   \tGPU.time = \((t11-t10)/TimeInterval(times)), CPU.time = \((t21-t20)/TimeInterval(times))")
         
-        var revers_array = [Float]()
+        let bitonicSort = BitonicSort()
         
-        for i in 0..<count {
-            revers_array.append(Float(count-i-1))
+        bitonicSort.array = randomGPU.array
+        
+        
+        print("# ... GPU sorting")
+        let t30 = NSDate.timeIntervalSinceReferenceDate
+        for _ in 0..<times {
+            bitonicSort.run()
         }
+        let t31 = NSDate.timeIntervalSinceReferenceDate
+        print("# ... GPU sorting done")
         
-        let bitonicSorter = BitonicSorter()
+        
+        var array = [Float](randomGPU.array)
+        
+        print("# ... DSP sorting")
+        let t40 = NSDate.timeIntervalSinceReferenceDate
+        for _ in 0..<times {
+            vDSP_vsort(&array, vDSP_Length(), 1)
+        }
+        let t41 = NSDate.timeIntervalSinceReferenceDate
+        print("# ... DSP sorting")
+        
+        array = [Float](randomGPU.array)
+        
+        print("# ... CPU sorting")
+        let t50 = NSDate.timeIntervalSinceReferenceDate
+        for _ in 0..<times {
+            let _ = quicksort(array)
+        }
+        let t51 = NSDate.timeIntervalSinceReferenceDate
+        print("# ... CPU sorting done")
 
-        bitonicSorter.array = revers_array //randomGPU.array
-        
-        bitonicSorter.run()
-        
-//        for i in 0..<randomGPU.array.count {
-//            print(i,randomGPU.array[i])
-//        }
-        var j = 0
-        for i in bitonicSorter.indices {
-            print(i)
-            for k in 0..<4{
-                let index = Int(i[k])
-                print(" ", bitonicSorter.array[index], bitonicSorter.array[j])
-                j += 1
+        if log {
+            for i in 0..<bitonicSort.array.count {
+                print(i,bitonicSort.array[i])
             }
         }
+        
+        print("# Sorting of {...n} ∈ ℝ:\tGPU.time = \((t31-t30)/TimeInterval(times)), CPU.time = \((t51-t50)/TimeInterval(times)),  but: DSP.time = \((t41-t40)/TimeInterval(times))!!! ")
+        
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
 }
 
