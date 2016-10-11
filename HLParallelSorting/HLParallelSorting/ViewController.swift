@@ -11,26 +11,6 @@ import Accelerate
 import simd
 
 
-public class RandomNoise:ArrayOperator{
-    public init(count:Int = 512){
-        super.init(name: "randomKernel")
-        defer{
-            array =  [Float](repeating:0, count:count)
-        }
-    }
-    
-    lazy var timerBuffer:MTLBuffer? = self.function.device?.makeBuffer(
-        length: MemoryLayout<Float>.size,
-        options: .cpuCacheModeWriteCombined)
-
-    public override func configure(commandEncoder: MTLComputeCommandEncoder) {
-        let timer  = UInt32(modf(NSDate.timeIntervalSinceReferenceDate).0)
-        var rand = Float(arc4random_uniform(timer))/Float(timer)
-        memcpy(timerBuffer?.contents(), &rand, MemoryLayout<Float>.size)
-        commandEncoder.setBuffer(timerBuffer, offset: 0, at: 2)
-    }
-}
-
 public class BitonicSorter:ArrayOperator{
     public init(){
         super.init(name: "bitonicSortKernel")
@@ -48,58 +28,43 @@ public class BitonicSorter:ArrayOperator{
         length: MemoryLayout<simd.uint>.size,
         options: .cpuCacheModeWriteCombined)
     
+    var indicesBuffer:MTLBuffer?
+    
+    var indices:[int4] = [int4]()
 
-    public override func configure(commandEncoder: MTLComputeCommandEncoder) {
-        commandEncoder.setBuffer(stageBuffer, offset: 0, at: 2)
-        commandEncoder.setBuffer(passOfStageBuffer, offset: 0, at: 3)
-        commandEncoder.setBuffer(directionBuffer, offset: 0, at: 4)
+    public override var array: [Float] {
+        didSet{
+            
+            indices.removeAll()
+            
+            for i in 0..<array.count/4 {
+                let index = i * 4
+                indices.append(int4(index+0,index+1,index+2,index+3))
+            }
+            
+            indicesBuffer = self.function.device?.makeBuffer(
+                bytes: indices,
+                length: MemoryLayout<int4>.size * indices.count,
+                options: MTLResourceOptions() /*.storageModeShared*/)
+        }
     }
-
-//    public func bitonic_stage(stage:Int, index:Int) -> Int {
-//        var index = index
-//        
-//        let numPasses    = stage
-//        let blockSize    = 1 << stage
-//        var step         = blockSize / 2
-//        let subBlockSize = blockSize
-//        let numSubBlocks = 1
-//        var pass         = 1
-//        
-//        while pass<=numPasses {
-//            
-//            pass  += 1
-//            step >>= 1
-//            index ^= 1
-//            
-//            var j = 0
-//            var x = 0
-//            
-//            while j<numSubBlocks {
-//                j += 1
-//                x += subBlockSize
-//                
-//                print("stage = \(stage) step = \(step), index = \(index), x = \(x)")
-//            }
-//        }
-//        
-//        return index
-//    }
-//
+    
+    public override func configure(commandEncoder: MTLComputeCommandEncoder) {
+        commandEncoder.setBuffer(indicesBuffer,     offset: 0, at: 2)
+        commandEncoder.setBuffer(stageBuffer,       offset: 0, at: 3)
+        commandEncoder.setBuffer(passOfStageBuffer, offset: 0, at: 4)
+        commandEncoder.setBuffer(directionBuffer,   offset: 0, at: 5)
+    }
     func bitonicSort() {
         
         var passNum:simd.uint = 0
         let arraySize = simd.uint(array.count)
         let numStages = Int(log2(Float(arraySize))-1)
         
-//        var temp = arraySize
-//        while temp > 2  {
-//            numStages += 1
-//            temp >>= 1
-//        }
-        
         var direction = simd.uint(1)
         
         function.threads.width = 32
+        //function.threadgroups.width = array.count/function.threads.width
         
         for stage in 0..<numStages {
             var passOfStage = stage
@@ -112,10 +77,7 @@ public class BitonicSorter:ArrayOperator{
                 memcpy(passOfStageBuffer?.contents(), &passOfStage, (passOfStageBuffer?.length)!)
                 memcpy(directionBuffer?.contents(), &direction, (directionBuffer?.length)!)
                 
-                let gsz = arraySize / (8)
-                
-                // NOTE: work size is not 1-per vector.
-                // Its the number of quad items in input array
+                let gsz = arraySize / 2 / 4
                 
                 function.threadgroups.width = (Int(passOfStage==0 ? gsz : gsz << 1))
                 
@@ -126,26 +88,16 @@ public class BitonicSorter:ArrayOperator{
             }
         }
         
-        flush()
+        //flush()
+        
+        //let pointer = OpaquePointer(indicesBuffer?.contents())
+        let bsize   = MemoryLayout<int4>.size * indices.count
+        memset(&indices, 0, bsize)
+        memcpy(&indices, indicesBuffer?.contents(), bsize)
     }
     
     public override func run(complete: Bool=false) {
-        
         bitonicSort()
-        
-//        var k:simd.uint = 2
-//        while  k <= simd.uint(array.count) {
-//            var j:simd.uint = k>>1
-//            while j>0 {
-//                print("j = \(j), k = \(k)")
-//                memcpy(indexBuffer?.contents(), &j, (indexBuffer?.length)!)
-//                memcpy(blockBuffer?.contents(), &k, (blockBuffer?.length)!)
-//                super.run(complete:false)
-//                j >>= 1
-//            }
-//            k <<= 1
-//        }
-//        flush()
     }
 }
 
@@ -197,8 +149,14 @@ class ViewController: UIViewController {
 //        for i in 0..<randomGPU.array.count {
 //            print(i,randomGPU.array[i])
 //        }
-        for i in 0..<bitonicSorter.array.count {
-            print(i,bitonicSorter.array[i])
+        var j = 0
+        for i in bitonicSorter.indices {
+            print(i)
+            for k in 0..<4{
+                let index = Int(i[k])
+                print(" ", bitonicSorter.array[index], bitonicSorter.array[j])
+                j += 1
+            }
         }
     }
     

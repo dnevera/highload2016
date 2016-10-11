@@ -11,7 +11,10 @@ using namespace metal;
 
 
 // Convert the indices into the sortable values (0 .. large num)
-inline float4 indexSortKeys(const int4 indices, device float* array)
+float4 indexSortKeys( const int4 indices,
+                     constant float* array);
+float4 indexSortKeys( const int4 indices,
+                     constant float* array)
 {
     return float4(array[indices[0]],
                   array[indices[1]],
@@ -19,7 +22,8 @@ inline float4 indexSortKeys(const int4 indices, device float* array)
                   array[indices[3]]);
 }
 
-inline int4 vecMask( int4 leftValues, int4 rightValues, bool4 mask )
+int4 vecMask( int4 leftValues, int4 rightValues, bool4 mask );
+int4 vecMask( int4 leftValues, int4 rightValues, bool4 mask )
 {
     int4 newValues(0);
     for ( int i = 0; i < 4; ++i )
@@ -29,7 +33,8 @@ inline int4 vecMask( int4 leftValues, int4 rightValues, bool4 mask )
     return newValues;
 }
 
-inline float4 vecMask( float4 leftValues, float4 rightValues, bool4 mask )
+float4 vecMask( float4 leftValues, float4 rightValues, bool4 mask );
+float4 vecMask( float4 leftValues, float4 rightValues, bool4 mask )
 {
     float4 newValues(0);
     for ( int i = 0; i < 4; ++i )
@@ -41,8 +46,12 @@ inline float4 vecMask( float4 leftValues, float4 rightValues, bool4 mask )
 
 // Creates a < mask of 4 vectors, and uses the indices as a secondary sort if the values are the same.
 // This guarantees that every value will have a definitive < or > relationship, even if they're ==,
-// which is necessary when using a bitonic sort.
-inline bool4 ltMask( float4 leftValues, float4 rightValues, int4 leftIndices, int4 rightIndices )
+// which is necessary when using a bitonic sort, otherwise it's possible to lose particles.
+// This assumes that the indices are unique.
+bool4 ltMask( float4 leftValues, float4 rightValues,
+             int4 leftIndices, int4 rightIndices );
+bool4 ltMask( float4 leftValues, float4 rightValues,
+             int4 leftIndices, int4 rightIndices )
 {
     bool4 ret(false);
     
@@ -60,25 +69,22 @@ inline bool4 ltMask( float4 leftValues, float4 rightValues, int4 leftIndices, in
     return ret;
 }
 
-
+//
 // Based on https://software.intel.com/en-us/articles/bitonic-sorting
-
+//
 kernel void bitonicSortKernel(
-                              device float      *array       [[ buffer(0) ]],
-                              const device uint &size        [[ buffer(1) ]],
-                              constant uint     &stage       [[ buffer(2) ]],
-                              constant uint     &passOfStage [[ buffer(3) ]],
-                              constant uint     &dir         [[ buffer(4) ]],
-                              
-                              uint tid [[thread_position_in_grid]]
-                              //uint  local_index            [[thread_index_in_threadgroup]],
-                              //uint2 groups_per_grid   [[ threadgroups_per_grid ]],
-                              //uint2 group_thread_size [[ threads_per_threadgroup ]],
-                              //uint2 grid_thread_count [[ threads_per_grid ]],
-                              //uint2 group_position    [[ threadgroup_position_in_grid ]]
+                              constant float    *array       [[ buffer(0) ]],
+                              device uint       &size        [[ buffer(1) ]],
+                              device int4       *indices     [[ buffer(2) ]],
+                              constant uint     &stage       [[ buffer(3) ]],
+                              constant uint     &passOfStage [[ buffer(4) ]],
+                              constant uint     &dir         [[ buffer(5) ]],
+                              uint2 tid [[thread_position_in_grid]]
                               )
 {
-    uint i = tid;
+    
+    uint i = tid[0];
+    //int  dir = 1;
     
     int4 srcLeft, srcRight;
     float4 valuesLeft, valuesRight;
@@ -96,8 +102,8 @@ kernel void bitonicSortKernel(
             uint left = ((i>>(passOfStage-1)) << passOfStage) + (i & lmask);
             uint right = left + r;
             
-            srcLeft  = int4(left,left+1,left+2,left+3);
-            srcRight = int4(right,right+1,right+2,left+3);
+            srcLeft = indices[left];
+            srcRight = indices[right];
             
             valuesLeft = indexSortKeys( srcLeft, array );
             valuesRight = indexSortKeys( srcRight, array );
@@ -110,20 +116,20 @@ kernel void bitonicSortKernel(
             
             if( ( (i>>(stage-1)) & 1) ^ dir )
             {
-                //indices[left]  = imax;
-                //indices[right] = imin;
+                indices[left]  = imax;
+                indices[right] = imin;
             }
             else
             {
-                //indices[right] = imax;
-                //indices[left]  = imin;
+                indices[right] = imax;
+                indices[left]  = imin;
             }
         }
         
         // last pass, sort inside one four
         else
         {
-            srcLeft = int4(i,i+1,i+2,i+3);
+            srcLeft = indices[i];
             valuesLeft = indexSortKeys( srcLeft, array );
             srcRight = srcLeft.zwxy;
             valuesRight = valuesLeft.zwxy;
@@ -157,9 +163,9 @@ kernel void bitonicSortKernel(
     {
         bool4 imask0 = (bool4)(0, 1, 1,  0);
         
-        srcLeft     = int4(i,i+1,i+2,i+3);//particleIndices[i];
-        srcRight    = srcLeft.yxwz;
-        valuesLeft  = indexSortKeys( srcLeft, array );
+        srcLeft = indices[i];
+        srcRight = srcLeft.yxwz;
+        valuesLeft = indexSortKeys( srcLeft, array );
         valuesRight = valuesLeft.yxwz;
         
         mask = ltMask(valuesLeft, valuesRight, srcLeft, srcRight) ^ imask0;
@@ -180,8 +186,6 @@ kernel void bitonicSortKernel(
         
         mask = ltMask(valuesLeft, valuesRight, srcLeft, srcRight) ^ imask10;
         
-        int4 indices;
-        
         if( (i & 1) ^ dir )
         {
             srcLeft = vecMask(srcLeft, srcRight, mask);
@@ -192,21 +196,18 @@ kernel void bitonicSortKernel(
             
             mask = ltMask(valuesLeft, valuesRight, srcLeft, srcRight) ^ imask11;
             
-            indices = vecMask(srcLeft, srcRight, mask);
-            
+            indices[i] = vecMask(srcLeft, srcRight, mask);
         }
         else
         {
             srcLeft = vecMask(srcLeft, srcRight, ~mask);
             valuesLeft = vecMask(valuesLeft, valuesRight, ~mask);
-            
             srcRight = srcLeft.yxwz;
             valuesRight = valuesLeft.yxwz;
             
             mask = ltMask(valuesLeft, valuesRight, srcLeft, srcRight) ^ imask11;
             
-            indices = vecMask(srcLeft, srcRight, ~mask);
-            
+            indices[i] = vecMask(srcLeft, srcRight, ~mask);
         }
     }
 }
