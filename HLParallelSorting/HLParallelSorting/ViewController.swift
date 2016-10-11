@@ -30,27 +30,23 @@ class ViewController: UIViewController {
         
         let randomGPU = RandomNoise(count: count)
         
-        let t10 = NSDate.timeIntervalSinceReferenceDate
-        
         print("# ... GPU random processing")
+        let t10 = NSDate.timeIntervalSinceReferenceDate
         for _ in 0..<times {
             randomGPU.run()
         }
-        
         let t11 = NSDate.timeIntervalSinceReferenceDate
         
         var randomCPU = [Float](repeating:0, count: count)
         
-        let t20 = NSDate.timeIntervalSinceReferenceDate
-        
         print("# ... CPU random processing")
+        let t20 = NSDate.timeIntervalSinceReferenceDate
         for _ in 0..<times {
             for i in 0..<count{
                 let timer  = UInt32(modf(NSDate.timeIntervalSinceReferenceDate).0)
                 randomCPU[i] = Float(arc4random_uniform(timer))/Float(timer)
             }
-        }
-        
+        }    
         let t21 = NSDate.timeIntervalSinceReferenceDate
         
         print("# Random of {...n} ∈ ℝ:   \tGPU.time = \((t11-t10)/TimeInterval(times)), CPU.time = \((t21-t20)/TimeInterval(times))")
@@ -81,7 +77,7 @@ class ViewController: UIViewController {
         
         array = [Float](randomGPU.array)
         
-        print("# ... CPU sorting")
+        print("# ... CPU sorting (quicksort)")
         let t50 = NSDate.timeIntervalSinceReferenceDate
         for _ in 0..<times {
             let _ = quicksort(array)

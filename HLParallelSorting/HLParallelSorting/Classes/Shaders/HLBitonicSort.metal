@@ -34,8 +34,7 @@ kernel void bitonicSortKernel(
     
     uint sameDirectionBlockWidth = 1 << stage;
     
-    if((threadId/sameDirectionBlockWidth) % 2 == 1)
-        sortIncreasing = 1 - sortIncreasing;
+    if((threadId/sameDirectionBlockWidth) % 2 == 1) sortIncreasing = 1 - sortIncreasing;
     
     float greater;
     float lesser;
