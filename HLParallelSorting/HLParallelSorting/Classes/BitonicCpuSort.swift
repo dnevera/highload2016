@@ -23,6 +23,8 @@ public class BitonicCpuSort {
     
     public var array = [Float]()
     
+    public var maxThreads:Int{ return threadNum }
+    
     func bnsBlock(a:inout [Float], i:Int,end:Int,asc:Bool,k:Int)  {
         var j = 0
         while (j<k/2)&&(i+j+k/2<end) {

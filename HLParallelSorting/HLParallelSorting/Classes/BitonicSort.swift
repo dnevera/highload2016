@@ -12,6 +12,8 @@ import simd
 
 public class BitonicSort:ArrayOperator{
     
+    public var maxThreads:Int{ return function.maxThreads }
+
     public init(){
         super.init(name: "bitonicSortKernel")
     }

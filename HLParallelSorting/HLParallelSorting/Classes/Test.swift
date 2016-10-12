@@ -10,7 +10,7 @@ import Foundation
 import Accelerate
 
 let log = false
-let useQSort = false
+let useQSort = true
 
 extension Float:Sortable{
     public func toInt() -> Int {
@@ -48,10 +48,10 @@ public func test() {
     
     let bitonicSort = BitonicSort()
     
-    print("\n# ... GPU sorting (bitonic)")
-    bitonicSort.array = randomGPU.array
+    print("\n# ... GPU sorting (bitonic, threads: \(bitonicSort.maxThreads))")
     var t30 = NSDate.timeIntervalSinceReferenceDate
     for _ in 0..<times {
+        bitonicSort.array = randomGPU.array
         bitonicSort.run()
     }
     var t31 = NSDate.timeIntervalSinceReferenceDate
@@ -59,19 +59,21 @@ public func test() {
     
     let bitonicCpuSort = BitonicCpuSort()
     
-    print("\n# ... CPU sorting (pthreading bitonic)")
-    bitonicCpuSort.array = randomGPU.array
+    print("\n# ... CPU sorting (pthreading bitonic, threads: \(bitonicCpuSort.maxThreads))")
     t30 = NSDate.timeIntervalSinceReferenceDate
     for _ in 0..<times {
+        bitonicCpuSort.array = randomGPU.array
         bitonicCpuSort.run()
     }
     t31 = NSDate.timeIntervalSinceReferenceDate
     print("# ... CPU sorting done, time = \((t31-t30)/TimeInterval(times))")
     
+    var array:[Float]
+
     print("\n# ... CPU sorting (swift3 sort)")
-    var array = [Float](randomGPU.array)
     t30 = NSDate.timeIntervalSinceReferenceDate
     for _ in 0..<times {
+        array = [Float](randomGPU.array)
         let _ = array.sorted {
             return $0<=$1
         }
@@ -81,9 +83,9 @@ public func test() {
     
     
     print("\n# ... DSP sorting")
-    array = [Float](randomGPU.array)
     t30 = NSDate.timeIntervalSinceReferenceDate
     for _ in 0..<times {
+        array = [Float](randomGPU.array)
         vDSP_vsort(&array, vDSP_Length(), 1)
     }
     t31 = NSDate.timeIntervalSinceReferenceDate
@@ -91,9 +93,9 @@ public func test() {
     
     if useQSort {
         print("\n# ... CPU sorting (quicksort)")
-        array = [Float](randomGPU.array)
         t30 = NSDate.timeIntervalSinceReferenceDate
         for _ in 0..<times {
+            array = [Float](randomGPU.array)
             let _ = quicksort(array)
         }
         t31 = NSDate.timeIntervalSinceReferenceDate
@@ -101,9 +103,9 @@ public func test() {
     }
     
     print("\n# ... CPU sorting (heapSort)")
-    array = [Float](randomGPU.array)
     t30 = NSDate.timeIntervalSinceReferenceDate
     for _ in 0..<times {
+        array = [Float](randomGPU.array)
         let _ = heapsort(a: array, <)
     }
     t31 = NSDate.timeIntervalSinceReferenceDate

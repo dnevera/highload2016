@@ -16,5 +16,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         test()
     }
+    
+    override func didReceiveMemoryWarning() {
+        print("Шеф! Усе пропало!")
+    }
 }
 

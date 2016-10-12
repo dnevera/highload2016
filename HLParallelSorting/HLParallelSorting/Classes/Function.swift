@@ -44,7 +44,7 @@ public class Function {
         }
     }()
     
-    var maxThreads:Int {
+    public var maxThreads:Int {
         var max=8
         if let p = self.pipeline {
             max = p.maxTotalThreadsPerThreadgroup
@@ -53,10 +53,6 @@ public class Function {
     }
     
     public lazy var threads:MTLSize = {
-//        var max=8
-//        if let p = self.pipeline {
-//            max = p.maxTotalThreadsPerThreadgroup
-//        }
         return MTLSize(width: self.maxThreads, height: 1,depth: 1)
     }()
 
