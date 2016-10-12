@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		313765571DAE29F00007105D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765561DAE29F00007105D /* main.swift */; };
+		3137655C1DAE2A090007105D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3137655B1DAE2A090007105D /* Accelerate.framework */; };
+		3137657C1DAE2B180007105D /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137657B1DAE2B180007105D /* QuickSort.swift */; };
+		3137658F1DAE2EAB0007105D /* BucketSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137658E1DAE2EAB0007105D /* BucketSort.swift */; };
+		313765A41DAE32250007105D /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765A31DAE32250007105D /* Test.swift */; };
+		313765BB1DAE35660007105D /* HeapSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765BA1DAE35660007105D /* HeapSort.swift */; };
+		313765C91DAE35E60007105D /* ArrayOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765BD1DAE35E60007105D /* ArrayOperator.swift */; };
+		313765CA1DAE35E60007105D /* BucketSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765BE1DAE35E60007105D /* BucketSort.swift */; };
+		313765CB1DAE35E60007105D /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765BF1DAE35E60007105D /* Function.swift */; };
+		313765CC1DAE35E60007105D /* HeapSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765C01DAE35E60007105D /* HeapSort.swift */; };
+		313765CD1DAE35E60007105D /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765C11DAE35E60007105D /* QuickSort.swift */; };
+		313765CE1DAE35E60007105D /* RandomNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765C21DAE35E60007105D /* RandomNoise.swift */; };
+		313765CF1DAE35E60007105D /* BitonicSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765C41DAE35E60007105D /* BitonicSort.swift */; };
+		313765D01DAE35E60007105D /* HLBitonicSort.metal in Sources */ = {isa = PBXBuildFile; fileRef = 313765C51DAE35E60007105D /* HLBitonicSort.metal */; };
+		313765D11DAE35E60007105D /* HLRandomGenerator.metal in Sources */ = {isa = PBXBuildFile; fileRef = 313765C71DAE35E60007105D /* HLRandomGenerator.metal */; };
+		313765D21DAE35E60007105D /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313765C81DAE35E60007105D /* Test.swift */; };
 		314314EC1DA8EDD300C97B73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314314EB1DA8EDD300C97B73 /* AppDelegate.swift */; };
 		314314EE1DA8EDD300C97B73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314314ED1DA8EDD300C97B73 /* ViewController.swift */; };
 		314314F11DA8EDD300C97B73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 314314EF1DA8EDD300C97B73 /* Main.storyboard */; };
@@ -21,7 +37,37 @@
 		31917C931DAD79250093C6D6 /* BitonicSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31917C921DAD79250093C6D6 /* BitonicSort.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		313765521DAE29F00007105D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		313765541DAE29F00007105D /* HLParallelSorting-OSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "HLParallelSorting-OSX"; sourceTree = BUILT_PRODUCTS_DIR; };
+		313765561DAE29F00007105D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3137655B1DAE2A090007105D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
+		3137657B1DAE2B180007105D /* QuickSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuickSort.swift; path = Classes/QuickSort.swift; sourceTree = "<group>"; };
+		3137658E1DAE2EAB0007105D /* BucketSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BucketSort.swift; path = Classes/BucketSort.swift; sourceTree = "<group>"; };
+		313765A31DAE32250007105D /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Test.swift; path = Classes/Test.swift; sourceTree = "<group>"; };
+		313765BA1DAE35660007105D /* HeapSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeapSort.swift; path = Classes/HeapSort.swift; sourceTree = "<group>"; };
+		313765BD1DAE35E60007105D /* ArrayOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOperator.swift; sourceTree = "<group>"; };
+		313765BE1DAE35E60007105D /* BucketSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketSort.swift; sourceTree = "<group>"; };
+		313765BF1DAE35E60007105D /* Function.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		313765C01DAE35E60007105D /* HeapSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeapSort.swift; sourceTree = "<group>"; };
+		313765C11DAE35E60007105D /* QuickSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSort.swift; sourceTree = "<group>"; };
+		313765C21DAE35E60007105D /* RandomNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNoise.swift; sourceTree = "<group>"; };
+		313765C41DAE35E60007105D /* BitonicSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitonicSort.swift; sourceTree = "<group>"; };
+		313765C51DAE35E60007105D /* HLBitonicSort.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLBitonicSort.metal; sourceTree = "<group>"; };
+		313765C61DAE35E60007105D /* HLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCommon.h; sourceTree = "<group>"; };
+		313765C71DAE35E60007105D /* HLRandomGenerator.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLRandomGenerator.metal; sourceTree = "<group>"; };
+		313765C81DAE35E60007105D /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		314314E81DA8EDD300C97B73 /* HLParallelSorting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLParallelSorting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		314314EB1DA8EDD300C97B73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		314314ED1DA8EDD300C97B73 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -41,6 +87,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		313765511DAE29F00007105D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3137655C1DAE2A090007105D /* Accelerate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		314314E51DA8EDD300C97B73 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -52,10 +106,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		313765551DAE29F00007105D /* HLParallelSorting-OSX */ = {
+			isa = PBXGroup;
+			children = (
+				313765BC1DAE35E60007105D /* Classes */,
+				313765561DAE29F00007105D /* main.swift */,
+			);
+			path = "HLParallelSorting-OSX";
+			sourceTree = "<group>";
+		};
+		313765BC1DAE35E60007105D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				313765BD1DAE35E60007105D /* ArrayOperator.swift */,
+				313765BE1DAE35E60007105D /* BucketSort.swift */,
+				313765BF1DAE35E60007105D /* Function.swift */,
+				313765C01DAE35E60007105D /* HeapSort.swift */,
+				313765C11DAE35E60007105D /* QuickSort.swift */,
+				313765C21DAE35E60007105D /* RandomNoise.swift */,
+				313765C31DAE35E60007105D /* Shaders */,
+				313765C81DAE35E60007105D /* Test.swift */,
+			);
+			name = Classes;
+			path = HLParallelSorting/Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		313765C31DAE35E60007105D /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				313765C41DAE35E60007105D /* BitonicSort.swift */,
+				313765C51DAE35E60007105D /* HLBitonicSort.metal */,
+				313765C61DAE35E60007105D /* HLCommon.h */,
+				313765C71DAE35E60007105D /* HLRandomGenerator.metal */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
 		314314DF1DA8EDD300C97B73 = {
 			isa = PBXGroup;
 			children = (
 				314314EA1DA8EDD300C97B73 /* HLParallelSorting */,
+				313765551DAE29F00007105D /* HLParallelSorting-OSX */,
 				314314E91DA8EDD300C97B73 /* Products */,
 				314315061DA9207600C97B73 /* Frameworks */,
 			);
@@ -65,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				314314E81DA8EDD300C97B73 /* HLParallelSorting.app */,
+				313765541DAE29F00007105D /* HLParallelSorting-OSX */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,9 +164,9 @@
 		314314EA1DA8EDD300C97B73 /* HLParallelSorting */ = {
 			isa = PBXGroup;
 			children = (
+				314315011DA8F13C00C97B73 /* Classes */,
 				314314EB1DA8EDD300C97B73 /* AppDelegate.swift */,
 				314314ED1DA8EDD300C97B73 /* ViewController.swift */,
-				314315011DA8F13C00C97B73 /* Classes */,
 				314314EF1DA8EDD300C97B73 /* Main.storyboard */,
 				314314F21DA8EDD300C97B73 /* Assets.xcassets */,
 				314314F41DA8EDD300C97B73 /* LaunchScreen.storyboard */,
@@ -91,6 +183,10 @@
 				3143150B1DA926FA00C97B73 /* ArrayOperator.swift */,
 				318AC5AC1DAD129F005D6C1E /* RandomNoise.swift */,
 				31917C921DAD79250093C6D6 /* BitonicSort.swift */,
+				3137657B1DAE2B180007105D /* QuickSort.swift */,
+				3137658E1DAE2EAB0007105D /* BucketSort.swift */,
+				313765BA1DAE35660007105D /* HeapSort.swift */,
+				313765A31DAE32250007105D /* Test.swift */,
 				314315031DA8F1D000C97B73 /* Shaders */,
 			);
 			name = Classes;
@@ -109,6 +205,7 @@
 		314315061DA9207600C97B73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3137655B1DAE2A090007105D /* Accelerate.framework */,
 				314315071DA9207600C97B73 /* Accelerate.framework */,
 			);
 			name = Frameworks;
@@ -117,6 +214,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		313765531DAE29F00007105D /* HLParallelSorting-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3137655A1DAE29F00007105D /* Build configuration list for PBXNativeTarget "HLParallelSorting-OSX" */;
+			buildPhases = (
+				313765501DAE29F00007105D /* Sources */,
+				313765511DAE29F00007105D /* Frameworks */,
+				313765521DAE29F00007105D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HLParallelSorting-OSX";
+			productName = "HLParallelSorting-OSX";
+			productReference = 313765541DAE29F00007105D /* HLParallelSorting-OSX */;
+			productType = "com.apple.product-type.tool";
+		};
 		314314E71DA8EDD300C97B73 /* HLParallelSorting */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 314314FA1DA8EDD300C97B73 /* Build configuration list for PBXNativeTarget "HLParallelSorting" */;
@@ -144,6 +258,11 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Moscow Exchange";
 				TargetAttributes = {
+					313765531DAE29F00007105D = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = NH5BGSK52T;
+						ProvisioningStyle = Automatic;
+					};
 					314314E71DA8EDD300C97B73 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = VA9AUYZN7Y;
@@ -166,6 +285,7 @@
 			projectRoot = "";
 			targets = (
 				314314E71DA8EDD300C97B73 /* HLParallelSorting */,
+				313765531DAE29F00007105D /* HLParallelSorting-OSX */,
 			);
 		};
 /* End PBXProject section */
@@ -184,14 +304,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		313765501DAE29F00007105D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				313765CA1DAE35E60007105D /* BucketSort.swift in Sources */,
+				313765CD1DAE35E60007105D /* QuickSort.swift in Sources */,
+				313765D11DAE35E60007105D /* HLRandomGenerator.metal in Sources */,
+				313765CE1DAE35E60007105D /* RandomNoise.swift in Sources */,
+				313765571DAE29F00007105D /* main.swift in Sources */,
+				313765D21DAE35E60007105D /* Test.swift in Sources */,
+				313765CF1DAE35E60007105D /* BitonicSort.swift in Sources */,
+				313765C91DAE35E60007105D /* ArrayOperator.swift in Sources */,
+				313765CB1DAE35E60007105D /* Function.swift in Sources */,
+				313765D01DAE35E60007105D /* HLBitonicSort.metal in Sources */,
+				313765CC1DAE35E60007105D /* HeapSort.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		314314E41DA8EDD300C97B73 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3143150E1DA92D1900C97B73 /* HLRandomGenerator.metal in Sources */,
+				3137658F1DAE2EAB0007105D /* BucketSort.swift in Sources */,
 				314315051DA8F23700C97B73 /* HLBitonicSort.metal in Sources */,
 				318AC5AD1DAD129F005D6C1E /* RandomNoise.swift in Sources */,
 				314314EE1DA8EDD300C97B73 /* ViewController.swift in Sources */,
+				313765A41DAE32250007105D /* Test.swift in Sources */,
+				3137657C1DAE2B180007105D /* QuickSort.swift in Sources */,
+				313765BB1DAE35660007105D /* HeapSort.swift in Sources */,
 				31917C931DAD79250093C6D6 /* BitonicSort.swift in Sources */,
 				314314EC1DA8EDD300C97B73 /* AppDelegate.swift in Sources */,
 				3143150C1DA926FA00C97B73 /* ArrayOperator.swift in Sources */,
@@ -221,6 +363,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		313765581DAE29F00007105D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				DEVELOPMENT_TEAM = NH5BGSK52T;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		313765591DAE29F00007105D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				DEVELOPMENT_TEAM = NH5BGSK52T;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		314314F81DA8EDD300C97B73 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -374,6 +542,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3137655A1DAE29F00007105D /* Build configuration list for PBXNativeTarget "HLParallelSorting-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				313765581DAE29F00007105D /* Debug */,
+				313765591DAE29F00007105D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		314314E31DA8EDD300C97B73 /* Build configuration list for PBXProject "HLParallelSorting" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
