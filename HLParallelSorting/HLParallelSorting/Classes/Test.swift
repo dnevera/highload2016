@@ -54,7 +54,8 @@ extension Float:Sortable{
 
 public func test() {
     
-    print("# ... \(modelIdentifier())")
+    let model = modelIdentifier()
+    print("# ... \(model)")
 
     let count     = 1024 * 1024 * 8
     let times     = 3
@@ -162,7 +163,9 @@ public func testRandomProgression() {
     let end    = 1024 * 1024 * 4
     let times  = 3
     
-    print("\(modelIdentifier())")
+    let model = modelIdentifier()
+
+    print("\(model)")
     print("Count\t GPU\t CPU")
     let randomGPU = RandomNoise(count: start)
 
@@ -211,6 +214,6 @@ public func testRandomProgression() {
     
     let max_time = max(cpu_max_time,gpu_max_time)
     
-    let plot_string = "clf; plot(x,g,'g','LineWidth',2); hold on; plot(x,c,'b','LineWidth',2); axis([\(start) \(end) 0 \(max_time)]); xlabel('Размер'); ylabel('Время создания, сек.'); title('Время генерации массива случайных чисел от размера'); legend('GPU','CPU');"
+    let plot_string = "clf; plot(x,g,'g','LineWidth',2); hold on; plot(x,c,'b','LineWidth',2); axis([\(start) \(end) 0 \(max_time)]); xlabel('Размер'); ylabel('Время создания, сек.'); title('Время генерации массива случайных чисел от размера. \(model)'); legend('GPU','CPU');"
     print("x = \(points); g = \(gpus); c = \(cpus); hFig = figure(1); set(hFig, 'Position', [100 100 960 640]); \(plot_string)")
 }
