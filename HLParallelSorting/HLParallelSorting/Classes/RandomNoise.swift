@@ -13,8 +13,15 @@ import simd
 
 public class RandomNoise:ArrayOperator{
     public init(count:Int = 512){
+        
         super.init(name: "randomKernel")
         defer{
+            self.count = count
+        }
+    }
+    
+    var count:Int = 512 {
+        didSet {
             array =  [Float](repeating:0, count:count)
         }
     }

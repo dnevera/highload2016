@@ -8,4 +8,5 @@
 
 import Foundation
 
-test()
+//test()
+testRandomProgression()

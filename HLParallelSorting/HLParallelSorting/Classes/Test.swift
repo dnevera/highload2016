@@ -6,11 +6,45 @@
 //  Copyright © 2016 Moscow Exchange. All rights reserved.
 //
 
+#if os(iOS)
+    import UIKit
+#endif
 import Foundation
 import Accelerate
 
 let log = false
-let useQSort = true
+let useQSort = false
+
+func modelIdentifier() -> String {
+    #if os(iOS)
+        return UIDevice.current.model + ", " + UIDevice.current.name
+    #else
+        var result = "Unknown Mac"
+        var len:size_t = 0
+        sysctlbyname("hw.model", nil, &len, nil, 0);
+        if len>0 {
+            var data:[Int8] = [Int8](repeating:0, count:len)
+            sysctlbyname("hw.model", &data, &len, nil, 0)
+            if let r = NSString(utf8String: &data) as? String {
+                result = r
+            }
+        }
+        
+        sysctlbyname("hw.machine", nil, &len, nil, 0);
+        if len>0 {
+            var data:[Int8] = [Int8](repeating:0, count:len)
+            sysctlbyname("hw.machine", &data, &len, nil, 0)
+            if let r = NSString(utf8String: &data) as? String {
+                result += ", " + r
+            }
+        }
+
+        var family:Int32 = 0
+        sysctlbyname("hw.cpufamily", &family, &len, nil, 0)
+        result += ", " + String(format: "%i", family)
+        return result
+    #endif
+}
 
 extension Float:Sortable{
     public func toInt() -> Int {
@@ -20,6 +54,8 @@ extension Float:Sortable{
 
 public func test() {
     
+    print("# ... \(modelIdentifier())")
+
     let count     = 1024 * 1024 * 8
     let times     = 3
     
@@ -69,7 +105,7 @@ public func test() {
     print("# ... CPU sorting done, time = \((t31-t30)/TimeInterval(times))")
     
     var array:[Float]
-
+    
     print("\n# ... CPU sorting (swift3 sort)")
     t30 = NSDate.timeIntervalSinceReferenceDate
     for _ in 0..<times {
@@ -118,4 +154,63 @@ public func test() {
     }
     
     print("\nPassed..\n")
+}
+
+public func testRandomProgression() {
+
+    let start  = 1024
+    let end    = 1024 * 1024 * 4
+    let times  = 3
+    
+    print("\(modelIdentifier())")
+    print("Count\t GPU\t CPU")
+    let randomGPU = RandomNoise(count: start)
+
+    var points:[Int] = [Int]()
+    var gpus:[Float] = [Float]()
+    var cpus:[Float] = [Float]()
+    
+    for i in stride(from: start, to: end, by: 1024 * 128) {
+        
+        autoreleasepool{
+            
+            let t10 = NSDate.timeIntervalSinceReferenceDate
+            for _ in 0..<times {
+                randomGPU.count = i
+                randomGPU.run()
+            }
+            let t11 = NSDate.timeIntervalSinceReferenceDate
+            
+            let t1 = Float(t11-t10)/Float(times)
+            
+            var randomCPU = [Float](repeating:0, count: i)
+            
+            let t20 = NSDate.timeIntervalSinceReferenceDate
+            for _ in 0..<times {
+                for k in 0..<i{
+                    let timer  = UInt32(modf(NSDate.timeIntervalSinceReferenceDate).0)
+                    randomCPU[k] = Float(arc4random_uniform(timer))/Float(timer)
+                }
+            }
+            let t21 = NSDate.timeIntervalSinceReferenceDate
+            let t2 = Float(t21-t20)/Float(times)
+
+            print("\(i)\t \((t1))\t \(t2)")
+            
+            points.append(i)
+            gpus.append(t1)
+            cpus.append(t2)
+        }
+    }
+    
+    var gpu_max_time:Float = 0
+    vDSP_maxv(gpus, 1, &gpu_max_time, vDSP_Length(cpus.count))
+
+    var cpu_max_time:Float = 0
+    vDSP_maxv(cpus, 1, &cpu_max_time, vDSP_Length(cpus.count))
+    
+    let max_time = max(cpu_max_time,gpu_max_time)
+    
+    let plot_string = "clf; plot(x,g,'g','LineWidth',2); hold on; plot(x,c,'b','LineWidth',2); axis([\(start) \(end) 0 \(max_time)]); xlabel('Размер'); ylabel('Время создания, сек.'); title('Время генерации массива случайных чисел от размера'); legend('GPU','CPU');"
+    print("x = \(points); g = \(gpus); c = \(cpus); hFig = figure(1); set(hFig, 'Position', [100 100 960 640]); \(plot_string)")
 }

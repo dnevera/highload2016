@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        test()
+        //test()
+        testRandomProgression()
     }
     
     override func didReceiveMemoryWarning() {
