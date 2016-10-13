@@ -24,17 +24,19 @@ struct Trade {
 // сделок
 //
 
-
 public func test() {
     
     if let path = Bundle.main.path(forResource: "trades_stock_first", ofType: "json") {
         
         var i = 0
+        
+        
         autoreleasepool{
             let reader = ReadTrades(path: path)
             while let line = reader.readline() {
                 autoreleasepool{
                     let trade = reader.readtrade(line: line)
+                    //print(trade)
                     i += 1
                 }
             }
@@ -69,9 +71,6 @@ class ReadTrades {
         var json = line.substring(with: line.startIndex..<(line.index(before: line.endIndex)))
         json = json.substring(to: json.index(before: json.endIndex))
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-        
         let first = json.characters.split{$0 == "["}.map(String.init)
         if first.count == 2 {
             let last  = first[1].characters.split{$0 == "]"}.map(String.init)
@@ -79,15 +78,11 @@ class ReadTrades {
                 let s = last[0].replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: " ", with: "")
                 let array = s.characters.split{$0 == ","}.map(String.init)
                 if array.count == 10 {
-                    let a1 = array[1]
-                    let a2 = array[2]
-                    let datetime = a1 + " " + a2
-                    //if let time = dateFormatter.date(from: datetime) {
-                        let id = array[3].hash
-                        //let t  = time.timeIntervalSince1970
-                        let v  = (array[7] as NSString).floatValue
-                        return Trade(id: UInt(id), value: v, time: UInt(0))
-                    //}
+                    let a2 = array[2].replacingOccurrences(of: ":", with: "").replacingOccurrences(of: "09", with: "9")
+                    let id = array[3].hash
+                    let t  = (a2 as NSString).integerValue //time.timeIntervalSince1970
+                    let v  = (array[7] as NSString).floatValue
+                    return Trade(id: UInt(id), value: v, time: UInt(t))
                 }
             }
         }

@@ -19,7 +19,6 @@
 		31AC14031DAFBE1F00FF6935 /* HLBitonicSort.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F71DAFBE1F00FF6935 /* HLBitonicSort.metal */; };
 		31AC14041DAFBE1F00FF6935 /* HLRandomGenerator.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F91DAFBE1F00FF6935 /* HLRandomGenerator.metal */; };
 		31AC14051DAFBE1F00FF6935 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13FA1DAFBE1F00FF6935 /* Test.swift */; };
-		31AC14081DAFC44B00FF6935 /* trades_stock.json in Resources */ = {isa = PBXBuildFile; fileRef = 31AC14071DAFC44B00FF6935 /* trades_stock.json */; };
 		31AC140A1DAFE67300FF6935 /* trades_stock_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 31AC14091DAFE67300FF6935 /* trades_stock_test.json */; };
 		31AC140C1DAFF9A800FF6935 /* trades_stock_first.json in Resources */ = {isa = PBXBuildFile; fileRef = 31AC140B1DAFF9A800FF6935 /* trades_stock_first.json */; };
 /* End PBXBuildFile section */
@@ -40,7 +39,6 @@
 		31AC13F81DAFBE1F00FF6935 /* HLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCommon.h; sourceTree = "<group>"; };
 		31AC13F91DAFBE1F00FF6935 /* HLRandomGenerator.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLRandomGenerator.metal; sourceTree = "<group>"; };
 		31AC13FA1DAFBE1F00FF6935 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
-		31AC14071DAFC44B00FF6935 /* trades_stock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock.json; path = Resources/trades_stock.json; sourceTree = "<group>"; };
 		31AC14091DAFE67300FF6935 /* trades_stock_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock_test.json; path = Resources/trades_stock_test.json; sourceTree = "<group>"; };
 		31AC140B1DAFF9A800FF6935 /* trades_stock_first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock_first.json; path = Resources/trades_stock_first.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +111,6 @@
 		31AC14061DAFBEF100FF6935 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				31AC14071DAFC44B00FF6935 /* trades_stock.json */,
 				31AC140B1DAFF9A800FF6935 /* trades_stock_first.json */,
 				31AC14091DAFE67300FF6935 /* trades_stock_test.json */,
 			);
@@ -183,7 +180,6 @@
 				31AC13E61DAFAA4800FF6935 /* LaunchScreen.storyboard in Resources */,
 				31AC13E31DAFAA4800FF6935 /* Assets.xcassets in Resources */,
 				31AC140C1DAFF9A800FF6935 /* trades_stock_first.json in Resources */,
-				31AC14081DAFC44B00FF6935 /* trades_stock.json in Resources */,
 				31AC13E11DAFAA4800FF6935 /* Main.storyboard in Resources */,
 				31AC140A1DAFE67300FF6935 /* trades_stock_test.json in Resources */,
 			);
