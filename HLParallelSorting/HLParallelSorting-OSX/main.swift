@@ -9,4 +9,5 @@
 import Foundation
 
 //test()
-testRandomProgression()
+//testRandomProgression()
+testSortProgression()

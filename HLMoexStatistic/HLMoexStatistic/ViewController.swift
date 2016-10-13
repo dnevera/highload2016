@@ -1,26 +1,25 @@
 //
 //  ViewController.swift
-//  HLParallelSorting
+//  HLMoexStatistic
 //
-//  Created by Denis Svinarchuk on 08/10/16.
+//  Created by Denis Svinarchuk on 13/10/16.
 //  Copyright © 2016 Moscow Exchange. All rights reserved.
 //
 
 import UIKit
-import Accelerate
-import simd
 
 class ViewController: UIViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        //test()
-        //testRandomProgression()
-        testSortProgression()
+        // Do any additional setup after loading the view, typically from a nib.
     }
-    
+
     override func didReceiveMemoryWarning() {
-        print("Шеф! Усе пропало!")
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
+
+
 }
 
