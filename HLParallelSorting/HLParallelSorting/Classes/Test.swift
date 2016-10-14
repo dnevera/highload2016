@@ -168,13 +168,14 @@ public func testSortProgression(){
     var gpus:[Float] = [Float]()
     var cpus:[Float] = [Float]()
     var cpus3:[Float] = [Float]()
+    var dsp:[Float] = [Float]()
     
     let randomGPU = RandomNoise(count: start)
     let bitonicSort = BitonicSort()
     let bitonicCpuSort = BitonicCpuSort()
 
     print("\(model)")
-    print("Count\t GPU\t CPU\t CPU(bitonic)")
+    print("Count\t GPU\t CPU\t CPU(bitonic)\t DSP")
 
     for i in stride(from: start, to: end, by: 1024 * 128) {
 
@@ -183,9 +184,9 @@ public func testSortProgression(){
 
         autoreleasepool{
             
+            bitonicSort.array = randomGPU.array
             let t10 = NSDate.timeIntervalSinceReferenceDate
             for _ in 0..<times {
-                bitonicSort.array = randomGPU.array
                 bitonicSort.run()
             }
             let t11 = NSDate.timeIntervalSinceReferenceDate
@@ -208,31 +209,50 @@ public func testSortProgression(){
                 bitonicCpuSort.run()
             }
             let t31 = NSDate.timeIntervalSinceReferenceDate
-
             let t3 = Float(t31-t30)/Float(times)
+
+            let t40 = NSDate.timeIntervalSinceReferenceDate
+            for _ in 0..<times {
+                var array = [Float](randomGPU.array)
+                vDSP_vsort(&array, vDSP_Length(), 1)
+            }
+            let t41 = NSDate.timeIntervalSinceReferenceDate
+            let t4 = Float(t41-t40)/Float(times)
             
-            print("\(i)\t \((t1))\t \(t2)\t \(t3)")
+            
+            print("\(i)\t \((t1))\t \(t2)\t \(t3)\t \(t4)")
             
             points.append(i)
             gpus.append(t1)
             cpus.append(t2)
             cpus3.append(t3)
+            dsp.append(t4)
         }
     }
     
     var gpu_max_time:Float = 0
-    vDSP_maxv(gpus, 1, &gpu_max_time, vDSP_Length(cpus.count))
+    vDSP_maxv(gpus, 1, &gpu_max_time, vDSP_Length(gpus.count))
     
     var cpu_max_time:Float = 0
     vDSP_maxv(cpus, 1, &cpu_max_time, vDSP_Length(cpus.count))
 
     var cpu3_max_time:Float = 0
-    vDSP_maxv(cpus3, 1, &cpu3_max_time, vDSP_Length(cpus.count))
+    vDSP_maxv(cpus3, 1, &cpu3_max_time, vDSP_Length(cpus3.count))
 
-    let max_time = max(max(cpu_max_time,gpu_max_time),cpu3_max_time)
+    var dsp_max_time:Float = 0
+    vDSP_maxv(dsp, 1, &dsp_max_time, vDSP_Length(dsp.count))
+
+    let max_time = max(max(max(cpu_max_time,gpu_max_time),cpu3_max_time),dsp_max_time)
     
-    let plot_string = "clf; plot(x,g,'g','LineWidth',2); hold on; plot(x,c,'b','LineWidth',2); plot(x,c3,'r','LineWidth',2); axis([\(start) \(end) 0 \(max_time)]); xlabel('Размер'); ylabel('Время создания, сек.'); title('Время сортировки массива случайных чисел от размера. \(model)'); legend('GPU Bitonic Sort','CPU Swift3 Sort','CPU Bitonic Sort');"
-    print("x = \(points); g = \(gpus); c = \(cpus); c3 = \(cpus3); hFig = figure(1); set(hFig, 'Position', [100 100 960 640]); \(plot_string)")
+    var plot_string = "clf; "
+    plot_string += "plot(x,g,'g','LineWidth',2); hold on; "
+    plot_string += "plot(x,c,'b','LineWidth',2); "
+    plot_string += "plot(x,c3,'r','LineWidth',2);"
+    plot_string += "plot(x,d,'k','LineWidth',2);"
+    plot_string += "axis([\(start) \(end) 0 \(max_time)]); xlabel('Размер'); ylabel('Время создания, сек.'); "
+    plot_string += "title('Время сортировки массива случайных чисел от размера. \(model)'); "
+    plot_string += "legend('GPU Bitonic Sort','CPU Swift3 Sort','CPU Bitonic Sort','DSP Sort');"
+    print("x = \(points); g = \(gpus); c = \(cpus); c3 = \(cpus3); d = \(dsp); hFig = figure(1); set(hFig, 'Position', [100 100 960 640]); \(plot_string)")
 
 }
 
