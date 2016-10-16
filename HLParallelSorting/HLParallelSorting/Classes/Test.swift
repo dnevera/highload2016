@@ -59,7 +59,7 @@ public func test() {
     
     print("# ... \(model)")
 
-    let count     = 1024 * 1024 * 8
+    let count     = 1024
     let times     = 3
     
     let randomGPU = RandomNoise(count: count)
@@ -96,6 +96,17 @@ public func test() {
     var t31 = NSDate.timeIntervalSinceReferenceDate
     print("# ... GPU sorting done, time = \((t31-t30)/TimeInterval(times))")
     
+    let bitonicSortOptimized = BitonicSort(name: "bitonicSortKernelOptimized")
+
+    print("\n# ... GPU sorting optimized (bitonic, threads: \(bitonicSort.maxThreads))")
+    t30 = NSDate.timeIntervalSinceReferenceDate
+    for _ in 0..<times {
+        bitonicSortOptimized.array = randomGPU.array
+        bitonicSortOptimized.run()
+    }
+    t31 = NSDate.timeIntervalSinceReferenceDate
+    print("# ... GPU sorting done, time = \((t31-t30)/TimeInterval(times))")
+
     let bitonicCpuSort = BitonicCpuSort()
     
     print("\n# ... CPU sorting (pthreading bitonic, threads: \(bitonicCpuSort.maxThreads))")
@@ -151,8 +162,8 @@ public func test() {
     print("# ... CPU sorting done, time = \((t31-t30)/TimeInterval(times))")
     
     if log {
-        for i in 0..<bitonicSort.array.count {
-            print(i,bitonicSort.array[i])
+        for i in 0..<100 {
+            print(i,bitonicSortOptimized.array[i])
         }
     }
     
@@ -313,4 +324,72 @@ public func testRandomProgression() {
     
     let plot_string = "clf; plot(x,g,'g','LineWidth',2); hold on; plot(x,c,'b','LineWidth',2); axis([\(start) \(end) 0 \(max_time)]); xlabel('Размер'); ylabel('Время создания, сек.'); title('Время создания массива случайных чисел от размера. \(model)'); legend('GPU','CPU');"
     print("x = \(points); g = \(gpus); c = \(cpus); hFig = figure(1); set(hFig, 'Position', [100 100 960 640]); \(plot_string)")
+}
+
+public func test2SortProgression(){
+    let start  = 1024
+    let end    = 1024 * 1024 * 2
+    let times  = 3
+    
+    var points:[Int] = [Int]()
+    var gpus:[Float] = [Float]()
+    var gpus2:[Float] = [Float]()
+    
+    let randomGPU = RandomNoise(count: start)
+    let bitonicSort = BitonicSort()
+    let bitonic2Sort = BitonicSort(name:"bitonicSortKernelOptimized")
+    
+    print("\(model)")
+    print("Count\t GPU\t CPU(optimized)\t")
+    
+    for i in stride(from: start, to: end, by: 1024 * 128) {
+        
+        randomGPU.count = i
+        randomGPU.run()
+        
+        autoreleasepool{
+            
+            bitonicSort.array = randomGPU.array
+            let t10 = NSDate.timeIntervalSinceReferenceDate
+            for _ in 0..<times {
+                bitonicSort.run()
+            }
+            let t11 = NSDate.timeIntervalSinceReferenceDate
+            
+            let t1 = Float(t11-t10)/Float(times)
+            
+            
+            let t20 = NSDate.timeIntervalSinceReferenceDate
+            for _ in 0..<times {
+                bitonic2Sort.array = randomGPU.array
+                bitonic2Sort.run()
+            }
+            let t21 = NSDate.timeIntervalSinceReferenceDate
+            let t2 = Float(t21-t20)/Float(times)
+            
+            
+            print("\(i)\t \((t1))\t \(t2)")
+            
+            points.append(i)
+            gpus.append(t1)
+            gpus2.append(t2)
+        }
+    }
+    
+    var gpu_max_time:Float = 0
+    vDSP_maxv(gpus, 1, &gpu_max_time, vDSP_Length(gpus.count))
+
+    var gpu2_max_time:Float = 0
+    vDSP_maxv(gpus2, 1, &gpu2_max_time, vDSP_Length(gpus2.count))
+
+    let max_time = max(gpu2_max_time,gpu_max_time)
+    
+    var plot_string = "clf; "
+    plot_string += "plot(x,g,'g','LineWidth',2); hold on; "
+    plot_string += "plot(x,g2,'b','LineWidth',2); "
+    plot_string += "axis([\(start) \(end) 0 \(max_time)]); xlabel('Размер'); ylabel('Время создания, сек.'); "
+    plot_string += "title('Время сортировки массива случайных чисел от размера. \(model)'); "
+    plot_string += "legend('GPU Bitonic Sort','GPU Bitonic Sort Optimized Kernel');"
+    print("x = \(points); g = \(gpus); g2 = \(gpus2); hFig = figure(1); set(hFig, 'Position', [100 100 960 640]); \(plot_string)")
+    
 }

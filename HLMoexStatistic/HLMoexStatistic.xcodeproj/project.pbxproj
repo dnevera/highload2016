@@ -7,23 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		311DCCAB1DB3612B00CD565A /* TradesOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCAA1DB3612B00CD565A /* TradesOperator.swift */; };
+		31917C951DB0F5770093C6D6 /* HLTradesFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31917C941DB0F5770093C6D6 /* HLTradesFilter.metal */; };
+		31917C9B1DB10CFA0093C6D6 /* trades_stock.json in Resources */ = {isa = PBXBuildFile; fileRef = 31917C9A1DB10CFA0093C6D6 /* trades_stock.json */; };
 		31AC13DC1DAFAA4800FF6935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13DB1DAFAA4800FF6935 /* AppDelegate.swift */; };
 		31AC13DE1DAFAA4800FF6935 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13DD1DAFAA4800FF6935 /* ViewController.swift */; };
 		31AC13E11DAFAA4800FF6935 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31AC13DF1DAFAA4800FF6935 /* Main.storyboard */; };
 		31AC13E31DAFAA4800FF6935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31AC13E21DAFAA4800FF6935 /* Assets.xcassets */; };
 		31AC13E61DAFAA4800FF6935 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31AC13E41DAFAA4800FF6935 /* LaunchScreen.storyboard */; };
-		31AC13FB1DAFBE1F00FF6935 /* ArrayOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13EE1DAFBE1F00FF6935 /* ArrayOperator.swift */; };
-		31AC13FD1DAFBE1F00FF6935 /* BitonicSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F01DAFBE1F00FF6935 /* BitonicSort.swift */; };
 		31AC13FF1DAFBE1F00FF6935 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F21DAFBE1F00FF6935 /* Function.swift */; };
-		31AC14021DAFBE1F00FF6935 /* RandomNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F51DAFBE1F00FF6935 /* RandomNoise.swift */; };
 		31AC14031DAFBE1F00FF6935 /* HLBitonicSort.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F71DAFBE1F00FF6935 /* HLBitonicSort.metal */; };
-		31AC14041DAFBE1F00FF6935 /* HLRandomGenerator.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F91DAFBE1F00FF6935 /* HLRandomGenerator.metal */; };
 		31AC14051DAFBE1F00FF6935 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13FA1DAFBE1F00FF6935 /* Test.swift */; };
 		31AC140A1DAFE67300FF6935 /* trades_stock_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 31AC14091DAFE67300FF6935 /* trades_stock_test.json */; };
 		31AC140C1DAFF9A800FF6935 /* trades_stock_first.json in Resources */ = {isa = PBXBuildFile; fileRef = 31AC140B1DAFF9A800FF6935 /* trades_stock_first.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		311DCCAA1DB3612B00CD565A /* TradesOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradesOperator.swift; sourceTree = "<group>"; };
+		31917C941DB0F5770093C6D6 /* HLTradesFilter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLTradesFilter.metal; sourceTree = "<group>"; };
+		31917C961DB0FE590093C6D6 /* HLMoexStatistic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HLMoexStatistic-Bridging-Header.h"; sourceTree = "<group>"; };
+		31917C9A1DB10CFA0093C6D6 /* trades_stock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock.json; path = Resources/trades_stock.json; sourceTree = "<group>"; };
 		31AC13D81DAFAA4800FF6935 /* HLMoexStatistic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLMoexStatistic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31AC13DB1DAFAA4800FF6935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31AC13DD1DAFAA4800FF6935 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,13 +34,9 @@
 		31AC13E21DAFAA4800FF6935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31AC13E51DAFAA4800FF6935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31AC13E71DAFAA4800FF6935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31AC13EE1DAFBE1F00FF6935 /* ArrayOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOperator.swift; sourceTree = "<group>"; };
-		31AC13F01DAFBE1F00FF6935 /* BitonicSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitonicSort.swift; sourceTree = "<group>"; };
 		31AC13F21DAFBE1F00FF6935 /* Function.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
-		31AC13F51DAFBE1F00FF6935 /* RandomNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNoise.swift; sourceTree = "<group>"; };
 		31AC13F71DAFBE1F00FF6935 /* HLBitonicSort.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLBitonicSort.metal; sourceTree = "<group>"; };
 		31AC13F81DAFBE1F00FF6935 /* HLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCommon.h; sourceTree = "<group>"; };
-		31AC13F91DAFBE1F00FF6935 /* HLRandomGenerator.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLRandomGenerator.metal; sourceTree = "<group>"; };
 		31AC13FA1DAFBE1F00FF6935 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		31AC14091DAFE67300FF6935 /* trades_stock_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock_test.json; path = Resources/trades_stock_test.json; sourceTree = "<group>"; };
 		31AC140B1DAFF9A800FF6935 /* trades_stock_first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock_first.json; path = Resources/trades_stock_first.json; sourceTree = "<group>"; };
@@ -88,12 +87,11 @@
 		31AC13ED1DAFBE1F00FF6935 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				31AC13EE1DAFBE1F00FF6935 /* ArrayOperator.swift */,
-				31AC13F01DAFBE1F00FF6935 /* BitonicSort.swift */,
 				31AC13F21DAFBE1F00FF6935 /* Function.swift */,
-				31AC13F51DAFBE1F00FF6935 /* RandomNoise.swift */,
+				311DCCAA1DB3612B00CD565A /* TradesOperator.swift */,
 				31AC13F61DAFBE1F00FF6935 /* Shaders */,
 				31AC13FA1DAFBE1F00FF6935 /* Test.swift */,
+				31917C961DB0FE590093C6D6 /* HLMoexStatistic-Bridging-Header.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -102,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				31AC13F71DAFBE1F00FF6935 /* HLBitonicSort.metal */,
+				31917C941DB0F5770093C6D6 /* HLTradesFilter.metal */,
 				31AC13F81DAFBE1F00FF6935 /* HLCommon.h */,
-				31AC13F91DAFBE1F00FF6935 /* HLRandomGenerator.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -113,6 +111,7 @@
 			children = (
 				31AC140B1DAFF9A800FF6935 /* trades_stock_first.json */,
 				31AC14091DAFE67300FF6935 /* trades_stock_test.json */,
+				31917C9A1DB10CFA0093C6D6 /* trades_stock.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -150,6 +149,7 @@
 					31AC13D71DAFAA4800FF6935 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = NH5BGSK52T;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -178,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31AC13E61DAFAA4800FF6935 /* LaunchScreen.storyboard in Resources */,
+				31917C9B1DB10CFA0093C6D6 /* trades_stock.json in Resources */,
 				31AC13E31DAFAA4800FF6935 /* Assets.xcassets in Resources */,
 				31AC140C1DAFF9A800FF6935 /* trades_stock_first.json in Resources */,
 				31AC13E11DAFAA4800FF6935 /* Main.storyboard in Resources */,
@@ -192,15 +193,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31AC14041DAFBE1F00FF6935 /* HLRandomGenerator.metal in Sources */,
-				31AC13FD1DAFBE1F00FF6935 /* BitonicSort.swift in Sources */,
+				311DCCAB1DB3612B00CD565A /* TradesOperator.swift in Sources */,
 				31AC13DE1DAFAA4800FF6935 /* ViewController.swift in Sources */,
 				31AC13FF1DAFBE1F00FF6935 /* Function.swift in Sources */,
-				31AC13FB1DAFBE1F00FF6935 /* ArrayOperator.swift in Sources */,
 				31AC14051DAFBE1F00FF6935 /* Test.swift in Sources */,
 				31AC13DC1DAFAA4800FF6935 /* AppDelegate.swift in Sources */,
 				31AC14031DAFBE1F00FF6935 /* HLBitonicSort.metal in Sources */,
-				31AC14021DAFBE1F00FF6935 /* RandomNoise.swift in Sources */,
+				31917C951DB0F5770093C6D6 /* HLTradesFilter.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +229,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_OPTIMIZATION = time;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -256,7 +256,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_FAST_MATH = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -274,6 +274,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -283,6 +284,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_OPTIMIZATION = time;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -308,6 +310,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_FAST_MATH = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -319,6 +322,7 @@
 				MTL_FAST_MATH = YES;
 				MTL_OPTIMIZATION_LEVEL = 3;
 				SDKROOT = iphoneos;
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -329,14 +333,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_OPTIMIZATION = time;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = NH5BGSK52T;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = HLMoexStatistic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				MTL_OPTIMIZATION_LEVEL = 3;
+				MTL_OPTIMIZATION_LEVEL = s;
 				PRODUCT_BUNDLE_IDENTIFIER = Moex.HLMoexStatistic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "HLMoexStatistic/Classes/HLMoexStatistic-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -345,14 +355,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_OPTIMIZATION = time;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = NH5BGSK52T;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = HLMoexStatistic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				MTL_OPTIMIZATION_LEVEL = 3;
+				MTL_OPTIMIZATION_LEVEL = s;
 				PRODUCT_BUNDLE_IDENTIFIER = Moex.HLMoexStatistic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "HLMoexStatistic/Classes/HLMoexStatistic-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -376,6 +392,7 @@
 				31AC13EC1DAFAA4800FF6935 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

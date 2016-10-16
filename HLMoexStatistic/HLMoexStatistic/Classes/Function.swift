@@ -16,7 +16,7 @@ public class Function {
     
     public let name:String
     
-    public let device = MTLCreateSystemDefaultDevice()
+    public var device:MTLDevice?
     
     lazy var library:MTLLibrary? = self.device?.newDefaultLibrary()
     
@@ -24,7 +24,13 @@ public class Function {
     
     lazy var commandQueue:MTLCommandQueue? = self.device?.makeCommandQueue()
     
-    public init(name:String) {
+    public init(name:String, device:MTLDevice? = nil) {
+        if device != nil {
+            self.device = device
+        }
+        else {
+            self.device = MTLCreateSystemDefaultDevice()
+        }
         self.name = name
     }
     
@@ -60,9 +66,9 @@ public class Function {
     
     var queue =  DispatchQueue(label: "com.hl.function")
     
-    public final func execute(size:Int, closure: Execution, complete: Execution) {
+    public final func execute(closure: Execution, complete: Execution) {
         if let commandBuffer = commandBuffer {
-            queue.sync {
+            //queue.sync {
                 let commandEncoder = commandBuffer.makeComputeCommandEncoder()
                 
                 commandEncoder.setComputePipelineState(pipeline!)
@@ -77,7 +83,7 @@ public class Function {
                                 
                 complete(commandEncoder)
 
-            }
+            //}
         }
     }
 }

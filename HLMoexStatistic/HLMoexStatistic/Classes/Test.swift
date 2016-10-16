@@ -13,12 +13,6 @@ import Foundation
 import Accelerate
 import simd
 
-struct Trade {
-    let id:UInt
-    let value:Float
-    let time:UInt
-}
-
 //
 // Сделать выборку по лидерам рынка для определенного времени и выдать список с максимальными объемами
 // сделок
@@ -26,23 +20,63 @@ struct Trade {
 
 public func test() {
     
-    if let path = Bundle.main.path(forResource: "trades_stock_first", ofType: "json") {
+    if let path = Bundle.main.path(forResource: "trades_stock_test", ofType: "json") {
         
         var i = 0
+        var trades:[Trade] = [Trade]()
+        var secids:[Int:String] = [Int:String]()
         
-        
+        var t10 = Date.timeIntervalSinceReferenceDate
         autoreleasepool{
             let reader = ReadTrades(path: path)
             while let line = reader.readline() {
                 autoreleasepool{
-                    let trade = reader.readtrade(line: line)
-                    //print(trade)
-                    i += 1
+                    if let (trade,secid) = reader.readtrade(line: line){
+                        secids[Int(trade.id)] = secid
+                        trades.append(trade)
+                        i += 1
+                    }
                 }
             }
         }
-        print("count = \(i)")
+        var t11 = Date.timeIntervalSinceReferenceDate
+        print("reading time = \((t11-t10))s, trades = \(trades.count)")
+
+        let k = Int(log2(Float(trades.count)))
+        let n = Int(pow(2,Float(k))*2) - trades.count
+
+        trades += [Trade](repeating:Trade(), count:n)
         
+        
+        let trades_copy:[Trade] = [Trade](trades)
+        
+        let bestTrades = TradesOperator()
+
+        bestTrades.trades = trades
+        t10 = Date.timeIntervalSinceReferenceDate
+        bestTrades.run()
+        t11 = Date.timeIntervalSinceReferenceDate
+        
+        print("filtering GPU time = \((t11-t10))s, trades = \(bestTrades.trades.count)")
+
+        trades = [Trade](trades_copy)
+        t10 = Date.timeIntervalSinceReferenceDate
+        var bestCPUTrades = trades.map{ (trade) -> Trade in
+            if (trade.time<100000 || trade.time>103000) {
+                return Trade(id: trade.id, time: trade.time, value: trade.value, sortable: 0)
+            }
+            return trade
+        }
+        bestCPUTrades = bestCPUTrades.sorted{
+            return $0.sortable>$1.sortable
+        }
+        t11 = Date.timeIntervalSinceReferenceDate
+
+        print("filtering CPU time = \((t11-t10))s, trades = \(trades.count)")
+
+        for t in bestTrades.thebest10 {
+            print(secids[Int(t.id)],t)
+        }
     }
 }
 
@@ -66,7 +100,7 @@ class ReadTrades {
         return getline(&line, &linecap, file) > 0 ? String(cString:line!) : nil
     }
     
-    func readtrade(line:String) -> Trade? {
+    func readtrade(line:String) -> (Trade,String)? {
         
         var json = line.substring(with: line.startIndex..<(line.index(before: line.endIndex)))
         json = json.substring(to: json.index(before: json.endIndex))
@@ -82,7 +116,7 @@ class ReadTrades {
                     let id = array[3].hash
                     let t  = (a2 as NSString).integerValue //time.timeIntervalSince1970
                     let v  = (array[7] as NSString).floatValue
-                    return Trade(id: UInt(id), value: v, time: UInt(t))
+                    return (Trade(id: uint(id), time: uint(t), value: v, sortable: v),array[3])
                 }
             }
         }

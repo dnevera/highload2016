@@ -11,3 +11,5 @@ import Foundation
 //test()
 //testRandomProgression()
 testSortProgression()
+//test2SortProgression()
+

@@ -7,13 +7,15 @@
 //
 
 #include <metal_stdlib>
+#include "HLCommon.h"
+
 using namespace metal;
 
 kernel void bitonicSortKernel(
-                              device float      *array       [[buffer(0)]],
-                              const device uint &stage       [[buffer(2)]],
-                              const device uint &passOfStage [[buffer(3)]],
-                              const device uint &direction   [[buffer(4)]],
+                              device Trade      *array       [[buffer(0)]],
+                              const device uint &stage       [[buffer(1)]],
+                              const device uint &passOfStage [[buffer(2)]],
+                              const device uint &direction   [[buffer(3)]],
                               uint tid [[thread_index_in_threadgroup]],
                               uint gid [[threadgroup_position_in_grid]],
                               uint threads [[threads_per_threadgroup]]
@@ -29,17 +31,17 @@ kernel void bitonicSortKernel(
     
     uint rightId = leftId + pairDistance;
     
-    float leftElement = array[leftId];
-    float rightElement = array[rightId];
+    Trade leftElement = array[leftId];
+    Trade rightElement = array[rightId];
     
     uint sameDirectionBlockWidth = 1 << stage;
     
     if((threadId/sameDirectionBlockWidth) % 2 == 1) sortIncreasing = 1 - sortIncreasing;
     
-    float greater;
-    float lesser;
+    Trade greater;
+    Trade lesser;
     
-    if(leftElement > rightElement)
+    if(leftElement.sortable > rightElement.sortable)
     {
         greater = leftElement;
         lesser  = rightElement;
@@ -50,7 +52,7 @@ kernel void bitonicSortKernel(
         lesser  = leftElement;
     }
     
-    if(sortIncreasing)
+    if(sortIncreasing == 1)
     {
         array[leftId]  = lesser;
         array[rightId] = greater;

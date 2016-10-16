@@ -14,8 +14,8 @@ public class BitonicSort:ArrayOperator{
     
     public var maxThreads:Int{ return function.maxThreads }
 
-    public init(){
-        super.init(name: "bitonicSortKernel")
+    public override init(name:String = "bitonicSortKernel" ){
+        super.init(name: name)
     }
     
     lazy var stageBuffer:MTLBuffer? = self.function.device?.makeBuffer(
@@ -66,7 +66,6 @@ public class BitonicSort:ArrayOperator{
                 super.run(complete:false)
             }
         }
-        
         flush()
     }
     
@@ -76,5 +75,5 @@ public class BitonicSort:ArrayOperator{
     
     public override func run(complete: Bool=false) {
         bitonicSort()
-    }
+    }    
 }
