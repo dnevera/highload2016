@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		311DCCAB1DB3612B00CD565A /* TradesOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCAA1DB3612B00CD565A /* TradesOperator.swift */; };
+		311DCCB31DB3A24C00CD565A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCB21DB3A24C00CD565A /* AppDelegate.swift */; };
+		311DCCB51DB3A24C00CD565A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCB41DB3A24C00CD565A /* ViewController.swift */; };
+		311DCCB81DB3A24C00CD565A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCB61DB3A24C00CD565A /* Main.storyboard */; };
+		311DCCBA1DB3A24C00CD565A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCB91DB3A24C00CD565A /* Assets.xcassets */; };
+		311DCCBD1DB3A24C00CD565A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCBB1DB3A24C00CD565A /* LaunchScreen.storyboard */; };
+		311DCCC31DB3A32200CD565A /* TradesReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCC21DB3A32200CD565A /* TradesReader.swift */; };
+		311DCCCE1DB3A34D00CD565A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCC51DB3A34D00CD565A /* Function.swift */; };
+		311DCCCF1DB3A34D00CD565A /* HLBitonicSort.metal in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCC81DB3A34D00CD565A /* HLBitonicSort.metal */; };
+		311DCCD01DB3A34D00CD565A /* HLTradesFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCCA1DB3A34D00CD565A /* HLTradesFilter.metal */; };
+		311DCCD21DB3A34D00CD565A /* TradesOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCCC1DB3A34D00CD565A /* TradesOperator.swift */; };
+		311DCCD31DB3A34D00CD565A /* TradesReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCCD1DB3A34D00CD565A /* TradesReader.swift */; };
+		311DCCDC1DB3A3FB00CD565A /* trades_stock.json in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCD91DB3A3FB00CD565A /* trades_stock.json */; };
+		311DCCDD1DB3A3FB00CD565A /* trades_stock_first.json in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCDA1DB3A3FB00CD565A /* trades_stock_first.json */; };
+		311DCCDE1DB3A3FB00CD565A /* trades_stock_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCDB1DB3A3FB00CD565A /* trades_stock_test.json */; };
 		31917C951DB0F5770093C6D6 /* HLTradesFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31917C941DB0F5770093C6D6 /* HLTradesFilter.metal */; };
 		31917C9B1DB10CFA0093C6D6 /* trades_stock.json in Resources */ = {isa = PBXBuildFile; fileRef = 31917C9A1DB10CFA0093C6D6 /* trades_stock.json */; };
 		31AC13DC1DAFAA4800FF6935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13DB1DAFAA4800FF6935 /* AppDelegate.swift */; };
@@ -17,17 +31,34 @@
 		31AC13E61DAFAA4800FF6935 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31AC13E41DAFAA4800FF6935 /* LaunchScreen.storyboard */; };
 		31AC13FF1DAFBE1F00FF6935 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F21DAFBE1F00FF6935 /* Function.swift */; };
 		31AC14031DAFBE1F00FF6935 /* HLBitonicSort.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13F71DAFBE1F00FF6935 /* HLBitonicSort.metal */; };
-		31AC14051DAFBE1F00FF6935 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13FA1DAFBE1F00FF6935 /* Test.swift */; };
 		31AC140A1DAFE67300FF6935 /* trades_stock_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 31AC14091DAFE67300FF6935 /* trades_stock_test.json */; };
 		31AC140C1DAFF9A800FF6935 /* trades_stock_first.json in Resources */ = {isa = PBXBuildFile; fileRef = 31AC140B1DAFF9A800FF6935 /* trades_stock_first.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		311DCCAA1DB3612B00CD565A /* TradesOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradesOperator.swift; sourceTree = "<group>"; };
+		311DCCB01DB3A24C00CD565A /* HLMoexHistogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLMoexHistogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		311DCCB21DB3A24C00CD565A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		311DCCB41DB3A24C00CD565A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		311DCCB71DB3A24C00CD565A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		311DCCB91DB3A24C00CD565A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		311DCCBC1DB3A24C00CD565A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		311DCCBE1DB3A24C00CD565A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		311DCCC21DB3A32200CD565A /* TradesReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradesReader.swift; sourceTree = "<group>"; };
+		311DCCC51DB3A34D00CD565A /* Function.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		311DCCC81DB3A34D00CD565A /* HLBitonicSort.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLBitonicSort.metal; sourceTree = "<group>"; };
+		311DCCC91DB3A34D00CD565A /* HLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCommon.h; sourceTree = "<group>"; };
+		311DCCCA1DB3A34D00CD565A /* HLTradesFilter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLTradesFilter.metal; sourceTree = "<group>"; };
+		311DCCCC1DB3A34D00CD565A /* TradesOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradesOperator.swift; sourceTree = "<group>"; };
+		311DCCCD1DB3A34D00CD565A /* TradesReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradesReader.swift; sourceTree = "<group>"; };
+		311DCCD41DB3A3A300CD565A /* HLMoexHistogram-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HLMoexHistogram-Bridging-Header.h"; sourceTree = "<group>"; };
+		311DCCD91DB3A3FB00CD565A /* trades_stock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trades_stock.json; sourceTree = "<group>"; };
+		311DCCDA1DB3A3FB00CD565A /* trades_stock_first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trades_stock_first.json; sourceTree = "<group>"; };
+		311DCCDB1DB3A3FB00CD565A /* trades_stock_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trades_stock_test.json; sourceTree = "<group>"; };
 		31917C941DB0F5770093C6D6 /* HLTradesFilter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLTradesFilter.metal; sourceTree = "<group>"; };
 		31917C961DB0FE590093C6D6 /* HLMoexStatistic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HLMoexStatistic-Bridging-Header.h"; sourceTree = "<group>"; };
 		31917C9A1DB10CFA0093C6D6 /* trades_stock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock.json; path = Resources/trades_stock.json; sourceTree = "<group>"; };
-		31AC13D81DAFAA4800FF6935 /* HLMoexStatistic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLMoexStatistic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31AC13D81DAFAA4800FF6935 /* HLMoexTrades.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLMoexTrades.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31AC13DB1DAFAA4800FF6935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31AC13DD1DAFAA4800FF6935 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		31AC13E01DAFAA4800FF6935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -37,12 +68,18 @@
 		31AC13F21DAFBE1F00FF6935 /* Function.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		31AC13F71DAFBE1F00FF6935 /* HLBitonicSort.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLBitonicSort.metal; sourceTree = "<group>"; };
 		31AC13F81DAFBE1F00FF6935 /* HLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCommon.h; sourceTree = "<group>"; };
-		31AC13FA1DAFBE1F00FF6935 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		31AC14091DAFE67300FF6935 /* trades_stock_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock_test.json; path = Resources/trades_stock_test.json; sourceTree = "<group>"; };
 		31AC140B1DAFF9A800FF6935 /* trades_stock_first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock_first.json; path = Resources/trades_stock_first.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		311DCCAD1DB3A24C00CD565A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		31AC13D51DAFAA4800FF6935 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,10 +90,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		311DCCB11DB3A24C00CD565A /* HLMoexHistogram */ = {
+			isa = PBXGroup;
+			children = (
+				311DCCD81DB3A3FB00CD565A /* Resources */,
+				311DCCC41DB3A34D00CD565A /* Classes */,
+				311DCCB21DB3A24C00CD565A /* AppDelegate.swift */,
+				311DCCB41DB3A24C00CD565A /* ViewController.swift */,
+				311DCCB61DB3A24C00CD565A /* Main.storyboard */,
+				311DCCB91DB3A24C00CD565A /* Assets.xcassets */,
+				311DCCBB1DB3A24C00CD565A /* LaunchScreen.storyboard */,
+				311DCCBE1DB3A24C00CD565A /* Info.plist */,
+			);
+			path = HLMoexHistogram;
+			sourceTree = "<group>";
+		};
+		311DCCC41DB3A34D00CD565A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				311DCCC51DB3A34D00CD565A /* Function.swift */,
+				311DCCC71DB3A34D00CD565A /* Shaders */,
+				311DCCCC1DB3A34D00CD565A /* TradesOperator.swift */,
+				311DCCCD1DB3A34D00CD565A /* TradesReader.swift */,
+				311DCCD41DB3A3A300CD565A /* HLMoexHistogram-Bridging-Header.h */,
+			);
+			name = Classes;
+			path = HLMoexStatistic/Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		311DCCC71DB3A34D00CD565A /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				311DCCC81DB3A34D00CD565A /* HLBitonicSort.metal */,
+				311DCCC91DB3A34D00CD565A /* HLCommon.h */,
+				311DCCCA1DB3A34D00CD565A /* HLTradesFilter.metal */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		311DCCD81DB3A3FB00CD565A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				311DCCD91DB3A3FB00CD565A /* trades_stock.json */,
+				311DCCDA1DB3A3FB00CD565A /* trades_stock_first.json */,
+				311DCCDB1DB3A3FB00CD565A /* trades_stock_test.json */,
+			);
+			name = Resources;
+			path = HLMoexStatistic/Resources;
+			sourceTree = SOURCE_ROOT;
+		};
 		31AC13CF1DAFAA4800FF6935 = {
 			isa = PBXGroup;
 			children = (
-				31AC13DA1DAFAA4800FF6935 /* HLMoexStatistic */,
+				31AC13DA1DAFAA4800FF6935 /* HLMoexTrades */,
+				311DCCB11DB3A24C00CD565A /* HLMoexHistogram */,
 				31AC13D91DAFAA4800FF6935 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,12 +151,13 @@
 		31AC13D91DAFAA4800FF6935 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				31AC13D81DAFAA4800FF6935 /* HLMoexStatistic.app */,
+				31AC13D81DAFAA4800FF6935 /* HLMoexTrades.app */,
+				311DCCB01DB3A24C00CD565A /* HLMoexHistogram.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		31AC13DA1DAFAA4800FF6935 /* HLMoexStatistic */ = {
+		31AC13DA1DAFAA4800FF6935 /* HLMoexTrades */ = {
 			isa = PBXGroup;
 			children = (
 				31AC14061DAFBEF100FF6935 /* Resources */,
@@ -81,6 +169,7 @@
 				31AC13E41DAFAA4800FF6935 /* LaunchScreen.storyboard */,
 				31AC13E71DAFAA4800FF6935 /* Info.plist */,
 			);
+			name = HLMoexTrades;
 			path = HLMoexStatistic;
 			sourceTree = "<group>";
 		};
@@ -89,9 +178,9 @@
 			children = (
 				31AC13F21DAFBE1F00FF6935 /* Function.swift */,
 				311DCCAA1DB3612B00CD565A /* TradesOperator.swift */,
-				31AC13F61DAFBE1F00FF6935 /* Shaders */,
-				31AC13FA1DAFBE1F00FF6935 /* Test.swift */,
+				311DCCC21DB3A32200CD565A /* TradesReader.swift */,
 				31917C961DB0FE590093C6D6 /* HLMoexStatistic-Bridging-Header.h */,
+				31AC13F61DAFBE1F00FF6935 /* Shaders */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -119,9 +208,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		31AC13D71DAFAA4800FF6935 /* HLMoexStatistic */ = {
+		311DCCAF1DB3A24C00CD565A /* HLMoexHistogram */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 31AC13EA1DAFAA4800FF6935 /* Build configuration list for PBXNativeTarget "HLMoexStatistic" */;
+			buildConfigurationList = 311DCCBF1DB3A24C00CD565A /* Build configuration list for PBXNativeTarget "HLMoexHistogram" */;
+			buildPhases = (
+				311DCCAC1DB3A24C00CD565A /* Sources */,
+				311DCCAD1DB3A24C00CD565A /* Frameworks */,
+				311DCCAE1DB3A24C00CD565A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HLMoexHistogram;
+			productName = HLMoexHistogram;
+			productReference = 311DCCB01DB3A24C00CD565A /* HLMoexHistogram.app */;
+			productType = "com.apple.product-type.application";
+		};
+		31AC13D71DAFAA4800FF6935 /* HLMoexTrades */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31AC13EA1DAFAA4800FF6935 /* Build configuration list for PBXNativeTarget "HLMoexTrades" */;
 			buildPhases = (
 				31AC13D41DAFAA4800FF6935 /* Sources */,
 				31AC13D51DAFAA4800FF6935 /* Frameworks */,
@@ -131,9 +237,9 @@
 			);
 			dependencies = (
 			);
-			name = HLMoexStatistic;
+			name = HLMoexTrades;
 			productName = HLMoexStatistic;
-			productReference = 31AC13D81DAFAA4800FF6935 /* HLMoexStatistic.app */;
+			productReference = 31AC13D81DAFAA4800FF6935 /* HLMoexTrades.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -142,10 +248,16 @@
 		31AC13D01DAFAA4800FF6935 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Moscow Exchange";
 				TargetAttributes = {
+					311DCCAF1DB3A24C00CD565A = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = NH5BGSK52T;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
 					31AC13D71DAFAA4800FF6935 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = NH5BGSK52T;
@@ -167,12 +279,26 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				31AC13D71DAFAA4800FF6935 /* HLMoexStatistic */,
+				31AC13D71DAFAA4800FF6935 /* HLMoexTrades */,
+				311DCCAF1DB3A24C00CD565A /* HLMoexHistogram */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		311DCCAE1DB3A24C00CD565A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				311DCCBD1DB3A24C00CD565A /* LaunchScreen.storyboard in Resources */,
+				311DCCBA1DB3A24C00CD565A /* Assets.xcassets in Resources */,
+				311DCCB81DB3A24C00CD565A /* Main.storyboard in Resources */,
+				311DCCDE1DB3A3FB00CD565A /* trades_stock_test.json in Resources */,
+				311DCCDD1DB3A3FB00CD565A /* trades_stock_first.json in Resources */,
+				311DCCDC1DB3A3FB00CD565A /* trades_stock.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		31AC13D61DAFAA4800FF6935 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -189,6 +315,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		311DCCAC1DB3A24C00CD565A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				311DCCD21DB3A34D00CD565A /* TradesOperator.swift in Sources */,
+				311DCCCF1DB3A34D00CD565A /* HLBitonicSort.metal in Sources */,
+				311DCCD01DB3A34D00CD565A /* HLTradesFilter.metal in Sources */,
+				311DCCD31DB3A34D00CD565A /* TradesReader.swift in Sources */,
+				311DCCCE1DB3A34D00CD565A /* Function.swift in Sources */,
+				311DCCB51DB3A24C00CD565A /* ViewController.swift in Sources */,
+				311DCCB31DB3A24C00CD565A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		31AC13D41DAFAA4800FF6935 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,7 +336,7 @@
 				311DCCAB1DB3612B00CD565A /* TradesOperator.swift in Sources */,
 				31AC13DE1DAFAA4800FF6935 /* ViewController.swift in Sources */,
 				31AC13FF1DAFBE1F00FF6935 /* Function.swift in Sources */,
-				31AC14051DAFBE1F00FF6935 /* Test.swift in Sources */,
+				311DCCC31DB3A32200CD565A /* TradesReader.swift in Sources */,
 				31AC13DC1DAFAA4800FF6935 /* AppDelegate.swift in Sources */,
 				31AC14031DAFBE1F00FF6935 /* HLBitonicSort.metal in Sources */,
 				31917C951DB0F5770093C6D6 /* HLTradesFilter.metal in Sources */,
@@ -206,6 +346,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		311DCCB61DB3A24C00CD565A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				311DCCB71DB3A24C00CD565A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		311DCCBB1DB3A24C00CD565A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				311DCCBC1DB3A24C00CD565A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		31AC13DF1DAFAA4800FF6935 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -225,6 +381,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		311DCCC01DB3A24C00CD565A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = NH5BGSK52T;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				INFOPLIST_FILE = HLMoexHistogram/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Moex.HLMoexHistogram;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HLMoexStatistic/Classes/HLMoexHistogram-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		311DCCC11DB3A24C00CD565A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = NH5BGSK52T;
+				INFOPLIST_FILE = HLMoexHistogram/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Moex.HLMoexHistogram;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HLMoexStatistic/Classes/HLMoexHistogram-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		31AC13E81DAFAA4800FF6935 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -376,6 +566,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		311DCCBF1DB3A24C00CD565A /* Build configuration list for PBXNativeTarget "HLMoexHistogram" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				311DCCC01DB3A24C00CD565A /* Debug */,
+				311DCCC11DB3A24C00CD565A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		31AC13D31DAFAA4800FF6935 /* Build configuration list for PBXProject "HLMoexStatistic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -385,7 +583,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		31AC13EA1DAFAA4800FF6935 /* Build configuration list for PBXNativeTarget "HLMoexStatistic" */ = {
+		31AC13EA1DAFAA4800FF6935 /* Build configuration list for PBXNativeTarget "HLMoexTrades" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31AC13EB1DAFAA4800FF6935 /* Debug */,

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "31AC13D71DAFAA4800FF6935"
-               BuildableName = "HLMoexTrades.app"
-               BlueprintName = "HLMoexTrades"
+               BlueprintIdentifier = "311DCCAF1DB3A24C00CD565A"
+               BuildableName = "HLMoexHistogram.app"
+               BlueprintName = "HLMoexHistogram"
                ReferencedContainer = "container:HLMoexStatistic.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31AC13D71DAFAA4800FF6935"
-            BuildableName = "HLMoexTrades.app"
-            BlueprintName = "HLMoexTrades"
+            BlueprintIdentifier = "311DCCAF1DB3A24C00CD565A"
+            BuildableName = "HLMoexHistogram.app"
+            BlueprintName = "HLMoexHistogram"
             ReferencedContainer = "container:HLMoexStatistic.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31AC13D71DAFAA4800FF6935"
-            BuildableName = "HLMoexTrades.app"
-            BlueprintName = "HLMoexTrades"
+            BlueprintIdentifier = "311DCCAF1DB3A24C00CD565A"
+            BuildableName = "HLMoexHistogram.app"
+            BlueprintName = "HLMoexHistogram"
             ReferencedContainer = "container:HLMoexStatistic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31AC13D71DAFAA4800FF6935"
-            BuildableName = "HLMoexTrades.app"
-            BlueprintName = "HLMoexTrades"
+            BlueprintIdentifier = "311DCCAF1DB3A24C00CD565A"
+            BuildableName = "HLMoexHistogram.app"
+            BlueprintName = "HLMoexHistogram"
             ReferencedContainer = "container:HLMoexStatistic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

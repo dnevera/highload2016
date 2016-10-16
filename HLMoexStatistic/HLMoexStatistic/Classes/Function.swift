@@ -68,7 +68,7 @@ public class Function {
     
     public final func execute(closure: Execution, complete: Execution) {
         if let commandBuffer = commandBuffer {
-            //queue.sync {
+            queue.sync {
                 let commandEncoder = commandBuffer.makeComputeCommandEncoder()
                 
                 commandEncoder.setComputePipelineState(pipeline!)
@@ -82,8 +82,7 @@ public class Function {
                 commandBuffer.waitUntilCompleted()
                                 
                 complete(commandEncoder)
-
-            //}
+            }
         }
     }
 }
