@@ -22,6 +22,7 @@
 		311DCCDC1DB3A3FB00CD565A /* trades_stock.json in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCD91DB3A3FB00CD565A /* trades_stock.json */; };
 		311DCCDD1DB3A3FB00CD565A /* trades_stock_first.json in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCDA1DB3A3FB00CD565A /* trades_stock_first.json */; };
 		311DCCDE1DB3A3FB00CD565A /* trades_stock_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 311DCCDB1DB3A3FB00CD565A /* trades_stock_test.json */; };
+		311DCCE01DB3F43900CD565A /* HLTradesHistogram.metal in Sources */ = {isa = PBXBuildFile; fileRef = 311DCCDF1DB3F43900CD565A /* HLTradesHistogram.metal */; };
 		31917C951DB0F5770093C6D6 /* HLTradesFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31917C941DB0F5770093C6D6 /* HLTradesFilter.metal */; };
 		31917C9B1DB10CFA0093C6D6 /* trades_stock.json in Resources */ = {isa = PBXBuildFile; fileRef = 31917C9A1DB10CFA0093C6D6 /* trades_stock.json */; };
 		31AC13DC1DAFAA4800FF6935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC13DB1DAFAA4800FF6935 /* AppDelegate.swift */; };
@@ -55,6 +56,7 @@
 		311DCCD91DB3A3FB00CD565A /* trades_stock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trades_stock.json; sourceTree = "<group>"; };
 		311DCCDA1DB3A3FB00CD565A /* trades_stock_first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trades_stock_first.json; sourceTree = "<group>"; };
 		311DCCDB1DB3A3FB00CD565A /* trades_stock_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trades_stock_test.json; sourceTree = "<group>"; };
+		311DCCDF1DB3F43900CD565A /* HLTradesHistogram.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLTradesHistogram.metal; sourceTree = "<group>"; };
 		31917C941DB0F5770093C6D6 /* HLTradesFilter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HLTradesFilter.metal; sourceTree = "<group>"; };
 		31917C961DB0FE590093C6D6 /* HLMoexStatistic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HLMoexStatistic-Bridging-Header.h"; sourceTree = "<group>"; };
 		31917C9A1DB10CFA0093C6D6 /* trades_stock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = trades_stock.json; path = Resources/trades_stock.json; sourceTree = "<group>"; };
@@ -121,9 +123,10 @@
 		311DCCC71DB3A34D00CD565A /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				311DCCC81DB3A34D00CD565A /* HLBitonicSort.metal */,
 				311DCCC91DB3A34D00CD565A /* HLCommon.h */,
+				311DCCC81DB3A34D00CD565A /* HLBitonicSort.metal */,
 				311DCCCA1DB3A34D00CD565A /* HLTradesFilter.metal */,
+				311DCCDF1DB3F43900CD565A /* HLTradesHistogram.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				311DCCD01DB3A34D00CD565A /* HLTradesFilter.metal in Sources */,
 				311DCCD31DB3A34D00CD565A /* TradesReader.swift in Sources */,
 				311DCCCE1DB3A34D00CD565A /* Function.swift in Sources */,
+				311DCCE01DB3F43900CD565A /* HLTradesHistogram.metal in Sources */,
 				311DCCB51DB3A24C00CD565A /* ViewController.swift in Sources */,
 				311DCCB31DB3A24C00CD565A /* AppDelegate.swift in Sources */,
 			);
