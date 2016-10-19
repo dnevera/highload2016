@@ -12,7 +12,7 @@
 import Foundation
 import Accelerate
 
-let log = false
+let log = true
 let useQSort = false
 
 func modelIdentifier() -> String {
