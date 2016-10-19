@@ -14,9 +14,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        test()
+        //test()
         //testRandomProgression()
-        //testSortProgression()
+        testSortProgression()
         //test2SortProgression()
     }
     

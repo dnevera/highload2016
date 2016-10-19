@@ -136,7 +136,7 @@ public func test() {
     t30 = NSDate.timeIntervalSinceReferenceDate
     for _ in 0..<times {
         array = [Float](randomGPU.array)
-        vDSP_vsort(&array, vDSP_Length(), 1)
+        vDSP_vsort(&array, vDSP_Length(array.count), 1)
     }
     t31 = NSDate.timeIntervalSinceReferenceDate
     print("# ... DSP sorting done, time = \((t31-t30)/TimeInterval(times))")
@@ -225,7 +225,7 @@ public func testSortProgression(){
             let t40 = NSDate.timeIntervalSinceReferenceDate
             for _ in 0..<times {
                 var array = [Float](randomGPU.array)
-                vDSP_vsort(&array, vDSP_Length(), 1)
+                vDSP_vsort(&array, vDSP_Length(array.count), 1)
             }
             let t41 = NSDate.timeIntervalSinceReferenceDate
             let t4 = Float(t41-t40)/Float(times)
