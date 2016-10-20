@@ -83,13 +83,12 @@ public class TradesHistogram {
 
 public func test() {
     
-    if let path = Bundle.main.path(forResource: "trades_stock", ofType: "json") {
+    if let path = Bundle.main.path(forResource: "trades_stock_first", ofType: "json") {
         
         var i = 0
         var trades:[Trade] = [Trade]()
         var secids:[Int:String] = [Int:String]()
         
-        var t10 = Date.timeIntervalSinceReferenceDate
         autoreleasepool{
             let reader = TradesReader(path: path)
             while let line = reader.readline() {
@@ -103,25 +102,13 @@ public func test() {
             }
         }
         
-        var t11 = Date.timeIntervalSinceReferenceDate
-        print("reading time = \((t11-t10))s, trades = \(trades.count)")
-        
         let timeTradesHistogram = TradesHistogram()
         timeTradesHistogram.trades = trades
-        t10 = Date.timeIntervalSinceReferenceDate
         timeTradesHistogram.run()
-        t11 = Date.timeIntervalSinceReferenceDate
-        print("histogram GPU computation time = \((t11-t10))s, trades = \(trades.count)")
 
-        var histogram:[Int] = [Int](repeating:0, count:10)
-        t10 = Date.timeIntervalSinceReferenceDate
-        for t in trades {
-            let i = Int(t.time/10000 - 9)
-            guard i>=0 && i<histogram.count else { continue }
-            histogram[i] += 1
+        for b in timeTradesHistogram.histogram {
+            print(b)
         }
-        t11 = Date.timeIntervalSinceReferenceDate
-        print("histogram CPU computation time = \((t11-t10))s, trades = \(trades.count)")
 
     }
 }

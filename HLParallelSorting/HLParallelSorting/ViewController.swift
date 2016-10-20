@@ -14,10 +14,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //test()
-        //testRandomProgression()
         testSortProgression()
-        //test2SortProgression()
     }
     
     override func didReceiveMemoryWarning() {

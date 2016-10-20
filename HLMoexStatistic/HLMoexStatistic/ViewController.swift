@@ -63,9 +63,6 @@ public func test() {
         
         trades += [Trade](repeating:Trade(), count:n)
         
-        
-        let trades_copy:[Trade] = [Trade](trades)
-        
         let bestTrades = TradesOperator()
         
         bestTrades.trades = trades
@@ -75,22 +72,7 @@ public func test() {
         
         print("filtering GPU time = \((t11-t10))s, trades = \(bestTrades.trades.count)")
         
-        trades = [Trade](trades_copy)
-        t10 = Date.timeIntervalSinceReferenceDate
-        var bestCPUTrades = trades.map{ (trade) -> Trade in
-            if (trade.time<100000 || trade.time>103000) {
-                return Trade(id: trade.id, time: trade.time, value: trade.value, sortable: 0)
-            }
-            return trade
-        }
-        bestCPUTrades = bestCPUTrades.sorted{
-            return $0.sortable>$1.sortable
-        }
-        t11 = Date.timeIntervalSinceReferenceDate
-        
-        print("filtering CPU time = \((t11-t10))s, trades = \(trades.count)")
-        
-        for t in bestTrades.thebest10 {
+            for t in bestTrades.thebest10 {
             print(secids[Int(t.id)],t)
         }
     }
