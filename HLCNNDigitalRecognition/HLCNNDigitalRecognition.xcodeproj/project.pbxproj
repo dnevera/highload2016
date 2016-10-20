@@ -24,14 +24,9 @@
 		3153153F1DB8F88500CF9BCA /* weights_conv2.dat in Resources */ = {isa = PBXBuildFile; fileRef = 315315321DB8F88500CF9BCA /* weights_conv2.dat */; };
 		315315401DB8F88500CF9BCA /* weights_fc1.dat in Resources */ = {isa = PBXBuildFile; fileRef = 315315331DB8F88500CF9BCA /* weights_fc1.dat */; };
 		315315411DB8F88500CF9BCA /* weights_fc2.dat in Resources */ = {isa = PBXBuildFile; fileRef = 315315341DB8F88500CF9BCA /* weights_fc2.dat */; };
-		315315421DB8F88500CF9BCA /* t10k-images-idx3-ubyte.data in Resources */ = {isa = PBXBuildFile; fileRef = 315315361DB8F88500CF9BCA /* t10k-images-idx3-ubyte.data */; };
-		315315431DB8F88500CF9BCA /* t10k-labels-idx1-ubyte.data in Resources */ = {isa = PBXBuildFile; fileRef = 315315371DB8F88500CF9BCA /* t10k-labels-idx1-ubyte.data */; };
-		315315441DB8F88500CF9BCA /* train-images-idx3-ubyte.data in Resources */ = {isa = PBXBuildFile; fileRef = 315315381DB8F88500CF9BCA /* train-images-idx3-ubyte.data */; };
-		315315451DB8F88500CF9BCA /* train-labels-idx1-ubyte.data in Resources */ = {isa = PBXBuildFile; fileRef = 315315391DB8F88500CF9BCA /* train-labels-idx1-ubyte.data */; };
 		315315491DB8FCD500CF9BCA /* bias_NN.dat in Resources */ = {isa = PBXBuildFile; fileRef = 315315471DB8FCD500CF9BCA /* bias_NN.dat */; };
 		3153154A1DB8FCD500CF9BCA /* weights_NN.dat in Resources */ = {isa = PBXBuildFile; fileRef = 315315481DB8FCD500CF9BCA /* weights_NN.dat */; };
 		31F477261DB8F25D00ED3635 /* DigitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F477251DB8F25D00ED3635 /* DigitView.swift */; };
-		31F477281DB8F4CF00ED3635 /* GetMNISTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F477271DB8F4CF00ED3635 /* GetMNISTData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,14 +51,9 @@
 		315315321DB8F88500CF9BCA /* weights_conv2.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_conv2.dat; sourceTree = "<group>"; };
 		315315331DB8F88500CF9BCA /* weights_fc1.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_fc1.dat; sourceTree = "<group>"; };
 		315315341DB8F88500CF9BCA /* weights_fc2.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_fc2.dat; sourceTree = "<group>"; };
-		315315361DB8F88500CF9BCA /* t10k-images-idx3-ubyte.data */ = {isa = PBXFileReference; lastKnownFileType = file; path = "t10k-images-idx3-ubyte.data"; sourceTree = "<group>"; };
-		315315371DB8F88500CF9BCA /* t10k-labels-idx1-ubyte.data */ = {isa = PBXFileReference; lastKnownFileType = file; path = "t10k-labels-idx1-ubyte.data"; sourceTree = "<group>"; };
-		315315381DB8F88500CF9BCA /* train-images-idx3-ubyte.data */ = {isa = PBXFileReference; lastKnownFileType = file; path = "train-images-idx3-ubyte.data"; sourceTree = "<group>"; };
-		315315391DB8F88500CF9BCA /* train-labels-idx1-ubyte.data */ = {isa = PBXFileReference; lastKnownFileType = file; path = "train-labels-idx1-ubyte.data"; sourceTree = "<group>"; };
 		315315471DB8FCD500CF9BCA /* bias_NN.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bias_NN.dat; sourceTree = "<group>"; };
 		315315481DB8FCD500CF9BCA /* weights_NN.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_NN.dat; sourceTree = "<group>"; };
 		31F477251DB8F25D00ED3635 /* DigitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitView.swift; sourceTree = "<group>"; };
-		31F477271DB8F4CF00ED3635 /* GetMNISTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMNISTData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				3153152B1DB8F88500CF9BCA /* Data */,
-				31F477271DB8F4CF00ED3635 /* GetMNISTData.swift */,
 				3153151C1DB8F56100CF9BCA /* MNISTSingleLayer.swift */,
 				3153151E1DB8F56900CF9BCA /* MNISTDeepCNN.swift */,
 				315315201DB8F56E00CF9BCA /* SlimMPSCNN.swift */,
@@ -128,7 +117,6 @@
 			children = (
 				315315461DB8FCD500CF9BCA /* nn */,
 				3153152C1DB8F88500CF9BCA /* deep */,
-				315315351DB8F88500CF9BCA /* mnist */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -146,17 +134,6 @@
 				315315341DB8F88500CF9BCA /* weights_fc2.dat */,
 			);
 			path = deep;
-			sourceTree = "<group>";
-		};
-		315315351DB8F88500CF9BCA /* mnist */ = {
-			isa = PBXGroup;
-			children = (
-				315315361DB8F88500CF9BCA /* t10k-images-idx3-ubyte.data */,
-				315315371DB8F88500CF9BCA /* t10k-labels-idx1-ubyte.data */,
-				315315381DB8F88500CF9BCA /* train-images-idx3-ubyte.data */,
-				315315391DB8F88500CF9BCA /* train-labels-idx1-ubyte.data */,
-			);
-			path = mnist;
 			sourceTree = "<group>";
 		};
 		315315461DB8FCD500CF9BCA /* nn */ = {
@@ -234,17 +211,13 @@
 				314813F51DB8C4900006D3BB /* Assets.xcassets in Resources */,
 				3153153B1DB8F88500CF9BCA /* bias_conv2.dat in Resources */,
 				3153153A1DB8F88500CF9BCA /* bias_conv1.dat in Resources */,
-				315315421DB8F88500CF9BCA /* t10k-images-idx3-ubyte.data in Resources */,
 				315315411DB8F88500CF9BCA /* weights_fc2.dat in Resources */,
 				314813F31DB8C4900006D3BB /* Main.storyboard in Resources */,
 				3153153F1DB8F88500CF9BCA /* weights_conv2.dat in Resources */,
-				315315431DB8F88500CF9BCA /* t10k-labels-idx1-ubyte.data in Resources */,
-				315315451DB8F88500CF9BCA /* train-labels-idx1-ubyte.data in Resources */,
 				3153154A1DB8FCD500CF9BCA /* weights_NN.dat in Resources */,
 				3153153C1DB8F88500CF9BCA /* bias_fc1.dat in Resources */,
 				315315491DB8FCD500CF9BCA /* bias_NN.dat in Resources */,
 				315315401DB8F88500CF9BCA /* weights_fc1.dat in Resources */,
-				315315441DB8F88500CF9BCA /* train-images-idx3-ubyte.data in Resources */,
 				3153153D1DB8F88500CF9BCA /* bias_fc2.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,7 +234,6 @@
 				314813F01DB8C4900006D3BB /* ViewController.swift in Sources */,
 				3153151F1DB8F56900CF9BCA /* MNISTDeepCNN.swift in Sources */,
 				3153152A1DB8F5B300CF9BCA /* atomics.m in Sources */,
-				31F477281DB8F4CF00ED3635 /* GetMNISTData.swift in Sources */,
 				315315211DB8F56E00CF9BCA /* SlimMPSCNN.swift in Sources */,
 				314813EE1DB8C4900006D3BB /* AppDelegate.swift in Sources */,
 			);
