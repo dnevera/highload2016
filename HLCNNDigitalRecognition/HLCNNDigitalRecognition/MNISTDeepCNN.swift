@@ -200,11 +200,6 @@ class MNISTDeepCNN: MNISTLayerCNN{
                 1);
             
             
-//            let descriptor = MTLTextureDescriptor.texture2DDescriptor(
-//                pixelFormat: srcImage.pixelFormat,
-//                width: srcImage.texture.width,
-//                height: srcImage.texture.height, mipmapped: false)
-
             let commandBuffer = commandQueue.makeCommandBuffer()
 
             let commandEncoder = commandBuffer.makeComputeCommandEncoder()
