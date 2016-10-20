@@ -17,10 +17,17 @@ public class ArrayOperator {
         didSet {
             if array.count>0 {
 
+                #if os(OSX)
+                    //let options:MTLResourceOptions = .storageModeManaged
+                    let options:MTLResourceOptions = .storageModeShared
+                #else
+                    let options:MTLResourceOptions = .storageModeShared
+                #endif
+
                 arrayBuffer = self.function.device?.makeBuffer(
                     bytes: self.array,
                     length: MemoryLayout<Float>.size * self.array.count,
-                    options: .storageModeShared /*MTLResourceOptions()*/)
+                    options: options)
                 
                 var size = array.count
                 
@@ -28,6 +35,10 @@ public class ArrayOperator {
                     bytes: &size,
                     length: MemoryLayout.size(ofValue: size),
                     options: .cpuCacheModeWriteCombined)
+                
+                //let blit = function.commandBuffer?.makeBlitCommandEncoder()
+                //blit?.synchronize(resource: arrayBuffer!)
+                //blit?.endEncoding()
             }
         }
     }
@@ -40,27 +51,31 @@ public class ArrayOperator {
 
     public func flush() {
         guard let buffer = arrayBuffer else { return }
+        
+        //let blit = function.commandBuffer?.makeBlitCommandEncoder()
+        //blit?.synchronize(resource: buffer)
+        //blit?.endEncoding()
 
-        let pointer = OpaquePointer(buffer.contents())
+        //let pointer = OpaquePointer(buffer.contents())
         
         //
         // V.1
         //
         //let bsize   = MemoryLayout<Float>.size * array.count
         //memset(&array, 0, bsize)
-        //memcpy(&array, UnsafePointer<Float>(pointer), bsize)
+        memcpy(&array, buffer.contents(), buffer.length)
         
         //
         // V.2
         //
-        vDSP_vclr(&array, 1, vDSP_Length(array.count))
+        //vDSP_vclr(&array, 1, vDSP_Length(array.count))
         //
         // V.2.1
         //
         //cblas_scopy(Int32(array.count), UnsafePointer<Float>(pointer), 1, &array, 1)
         //
         //
-        vDSP_vadd(UnsafePointer<Float>(pointer), 1, array, 1, &array, 1, vDSP_Length(array.count))
+        //vDSP_vadd(UnsafePointer<Float>(pointer), 1, array, 1, &array, 1, vDSP_Length(array.count))
     }
     
     public func run(complete:Bool = true){
@@ -74,7 +89,6 @@ public class ArrayOperator {
                     commandEncoder.setBuffer(arraySizeBuffer, offset: 0, at: 1)
                     
                     configure(commandEncoder: commandEncoder)
-                    
                 },
                 complete: { (commandEncoder) in
                     

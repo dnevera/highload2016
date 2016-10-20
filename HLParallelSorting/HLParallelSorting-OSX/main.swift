@@ -8,8 +8,8 @@
 
 import Foundation
 
-//test()
+test()
 //testRandomProgression()
-testSortProgression()
+//testSortProgression()
 //test2SortProgression()
 
