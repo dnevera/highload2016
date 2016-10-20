@@ -65,10 +65,10 @@ class DigitView: UIView {
         
         let bitmapInfo = CGImageAlphaInfo.none.rawValue
         
-        let context = CGContext(data: nil, width: 28, height: 28, bitsPerComponent: 8, bytesPerRow: 28, space: colorSpace, bitmapInfo: bitmapInfo)
+        let context = CGContext(data: nil, width: MNISTLayerCNN.inputWidth, height: MNISTLayerCNN.inputHeight, bitsPerComponent: 8, bytesPerRow: MNISTLayerCNN.inputWidth, space: colorSpace, bitmapInfo: bitmapInfo)
         
-        context!.translateBy(x: 0 , y: 28)
-        context!.scaleBy(x: 28/self.frame.size.width, y: -28/self.frame.size.height)
+        context!.translateBy(x: 0 , y: CGFloat(MNISTLayerCNN.inputWidth))
+        context!.scaleBy(x: CGFloat(MNISTLayerCNN.inputWidth)/self.frame.size.width, y: -CGFloat(MNISTLayerCNN.inputHeight)/self.frame.size.height)
         
         self.layer.render(in: context!)
         

@@ -13,17 +13,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var digitView: DigitView!
     @IBOutlet weak var digitLabel: UILabel!
     
-    var runningNet = MNIST_Deep_ConvNN()
+    var runningNet = MNISTDeepCNN()
 
     func detectDigit(context: CGContext) {
         
         runningNet.updateSource(bytes: context.data!)
         
-        // run the network forward pass
         let digit = runningNet.forward()
         var label = "?"
         
-        // show the prediction
         if digit < UInt.max {
             label = "\(digit)"
         }
