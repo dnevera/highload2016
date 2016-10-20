@@ -68,9 +68,7 @@ public class Function {
                 commandEncoder.setComputePipelineState(pipeline!)
                 
                 closure(commandEncoder)
-                
-                //print("threadgroups = \(threadgroups) threads = \(threads)")
-                
+                                
                 commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threads)
                 commandEncoder.endEncoding()
                 
