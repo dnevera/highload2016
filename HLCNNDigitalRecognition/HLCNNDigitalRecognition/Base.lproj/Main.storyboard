@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11517.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,19 +15,20 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAx-Tg-9ly" customClass="DigitView" customModule="HLCNNDigitalRecognition" customModuleProvider="target">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="Wbb-N4-E0T"/>
+                                    <constraint firstAttribute="height" constant="270" id="UMT-Ti-7uW"/>
+                                    <constraint firstAttribute="width" constant="270" id="bH4-gO-1fZ"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKM-sY-NfU">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="3Wu-KO-5Od"/>
-                                    <constraint firstAttribute="height" constant="96" id="J1F-cN-afR"/>
+                                    <constraint firstAttribute="width" constant="208" id="Ip6-hp-MON"/>
+                                    <constraint firstAttribute="height" constant="96" id="bE3-Jb-WXD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="82"/>
                                 <nil key="textColor"/>
@@ -37,11 +37,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="qAx-Tg-9ly" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="142" id="5mw-7j-A47"/>
-                            <constraint firstItem="SKM-sY-NfU" firstAttribute="centerX" secondItem="qAx-Tg-9ly" secondAttribute="centerX" id="E9s-N5-bPg"/>
-                            <constraint firstItem="qAx-Tg-9ly" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YJL-NI-EiG"/>
-                            <constraint firstItem="qAx-Tg-9ly" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="h7F-Dh-Qul"/>
-                            <constraint firstItem="SKM-sY-NfU" firstAttribute="top" secondItem="qAx-Tg-9ly" secondAttribute="bottom" constant="55" id="o8U-1e-6Eq"/>
+                            <constraint firstItem="SKM-sY-NfU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="178.5" id="FfZ-nc-Vof"/>
+                            <constraint firstItem="qAx-Tg-9ly" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="I3F-Qv-w72"/>
+                            <constraint firstItem="qAx-Tg-9ly" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-104.5" id="OWo-Qv-79J"/>
+                            <constraint firstItem="SKM-sY-NfU" firstAttribute="centerY" secondItem="qAx-Tg-9ly" secondAttribute="centerY" id="S12-Zu-72J"/>
                         </constraints>
                     </view>
                     <connections>
@@ -51,7 +50,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+            <point key="canvasLocation" x="136.28185907046478" y="138.40000000000001"/>
         </scene>
     </scenes>
 </document>

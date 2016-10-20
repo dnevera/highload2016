@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        digitView.backgroundColor = UIColor.white
         digitView.layer.borderWidth = 1
         digitView.layer.borderColor = UIColor.gray.cgColor
         digitView.layer.cornerRadius = 5
