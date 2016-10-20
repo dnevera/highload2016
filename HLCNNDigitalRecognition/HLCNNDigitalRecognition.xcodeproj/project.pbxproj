@@ -25,6 +25,7 @@
 		315315411DB8F88500CF9BCA /* weights_fc2.dat in Resources */ = {isa = PBXBuildFile; fileRef = 315315341DB8F88500CF9BCA /* weights_fc2.dat */; };
 		315315491DB8FCD500CF9BCA /* bias_NN.dat in Resources */ = {isa = PBXBuildFile; fileRef = 315315471DB8FCD500CF9BCA /* bias_NN.dat */; };
 		3153154A1DB8FCD500CF9BCA /* weights_NN.dat in Resources */ = {isa = PBXBuildFile; fileRef = 315315481DB8FCD500CF9BCA /* weights_NN.dat */; };
+		31CAB61D1DB909DF00780200 /* HLInvert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 31CAB61C1DB909DF00780200 /* HLInvert.metal */; };
 		31F477261DB8F25D00ED3635 /* DigitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F477251DB8F25D00ED3635 /* DigitView.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		315315341DB8F88500CF9BCA /* weights_fc2.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_fc2.dat; sourceTree = "<group>"; };
 		315315471DB8FCD500CF9BCA /* bias_NN.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bias_NN.dat; sourceTree = "<group>"; };
 		315315481DB8FCD500CF9BCA /* weights_NN.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_NN.dat; sourceTree = "<group>"; };
+		31CAB61C1DB909DF00780200 /* HLInvert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = HLInvert.metal; path = Shaders/HLInvert.metal; sourceTree = "<group>"; };
 		31F477251DB8F25D00ED3635 /* DigitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 				314813EF1DB8C4900006D3BB /* ViewController.swift */,
 				31F477251DB8F25D00ED3635 /* DigitView.swift */,
 				315315231DB8F57C00CF9BCA /* CNN */,
+				31CAB61B1DB909BF00780200 /* Shaders */,
 				314813F11DB8C4900006D3BB /* Main.storyboard */,
 				314813F41DB8C4900006D3BB /* Assets.xcassets */,
 				314813F61DB8C4900006D3BB /* LaunchScreen.storyboard */,
@@ -138,6 +141,14 @@
 				315315481DB8FCD500CF9BCA /* weights_NN.dat */,
 			);
 			path = nn;
+			sourceTree = "<group>";
+		};
+		31CAB61B1DB909BF00780200 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				31CAB61C1DB909DF00780200 /* HLInvert.metal */,
+			);
+			name = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31F477261DB8F25D00ED3635 /* DigitView.swift in Sources */,
+				31CAB61D1DB909DF00780200 /* HLInvert.metal in Sources */,
 				3153151D1DB8F56100CF9BCA /* MNISTLayerCNN.swift in Sources */,
 				314813F01DB8C4900006D3BB /* ViewController.swift in Sources */,
 				3153151F1DB8F56900CF9BCA /* MNISTDeepCNN.swift in Sources */,

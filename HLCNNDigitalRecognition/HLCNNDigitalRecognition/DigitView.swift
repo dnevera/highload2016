@@ -13,7 +13,7 @@ class DigitView: UIView {
     var complete:((_: CGContext?) -> Void)? = nil
     
     var linewidth = CGFloat(16) { didSet { setNeedsDisplay() } }
-    var color = UIColor.white { didSet { setNeedsDisplay() } }
+    var color = UIColor.black { didSet { setNeedsDisplay() } }
     
     var lines: [Line] = []
     var lastPoint: CGPoint!

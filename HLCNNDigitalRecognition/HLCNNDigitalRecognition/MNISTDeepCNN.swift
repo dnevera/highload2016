@@ -8,6 +8,86 @@
 
 import MetalPerformanceShaders
 
+
+
+public class Function {
+    
+    public typealias Execution = ((_ encoder:MTLComputeCommandEncoder) -> Void)
+    
+    public let name:String
+    
+    public var device:MTLDevice?
+    
+    lazy var library:MTLLibrary? = self.device?.newDefaultLibrary()
+    
+    lazy var kernel:MTLFunction? = self.library?.makeFunction(name: self.name)
+    
+    lazy var commandQueue:MTLCommandQueue? = self.device?.makeCommandQueue()
+    
+    public init(name:String, device:MTLDevice? = nil) {
+        if device != nil {
+            self.device = device
+        }
+        else {
+            self.device = MTLCreateSystemDefaultDevice()
+        }
+        self.name = name
+    }
+    
+    var commandBuffer:MTLCommandBuffer?  {
+        return self.commandQueue?.makeCommandBuffer()
+    }
+    
+    public lazy var pipeline:MTLComputePipelineState? = {
+        if self.kernel == nil {
+            fatalError(" *** IMPFunction: \(self.name) has not foumd...")
+        }
+        do{
+            return try self.device?.makeComputePipelineState(function: self.kernel!)
+        }
+        catch let error as NSError{
+            fatalError(" *** IMPFunction: \(error)")
+        }
+    }()
+    
+    public var maxThreads:Int {
+        var max=8
+        if let p = self.pipeline {
+            max = p.maxTotalThreadsPerThreadgroup
+        }
+        return max
+    }
+    
+    public lazy var threads:MTLSize = {
+        return MTLSize(width: self.maxThreads, height: 1,depth: 1)
+    }()
+    
+    public var threadgroups = MTLSizeMake(1,1,1)
+    
+    var queue =  DispatchQueue(label: "com.hl.function")
+    
+    public final func execute(closure: Execution, complete: Execution) {
+        if let commandBuffer = commandBuffer {
+            queue.sync {
+                let commandEncoder = commandBuffer.makeComputeCommandEncoder()
+                
+                commandEncoder.setComputePipelineState(pipeline!)
+                
+                closure(commandEncoder)
+                
+                commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threads)
+                commandEncoder.endEncoding()
+                
+                commandBuffer.commit()
+                commandBuffer.waitUntilCompleted()
+                
+                complete(commandEncoder)
+            }
+        }
+    }
+}
+
+
 /**
  
     This class has our entire network with all layers to getting the final label
@@ -32,7 +112,8 @@ class MNISTDeepCNN: MNISTLayerCNN{
     var relu: MPSCNNNeuronReLU
     var softmax : MPSCNNSoftMax
 
-    
+    let invert:Function!
+
     var commandQueue:MTLCommandQueue!
     
     override init(withCommandQueue commandQueueIn: MTLCommandQueue? = nil) {
@@ -48,6 +129,8 @@ class MNISTDeepCNN: MNISTLayerCNN{
         }
         
         let device = commandQueue.device
+        
+        invert = Function(name: "invertKernel", device: device)
         
         pool = MPSCNNPoolingMax(device: device, kernelWidth: 2, kernelHeight: 2, strideInPixelsX: 2, strideInPixelsY: 2)
         pool.offset = MPSOffset(x: 1, y: 1, z: 0);
@@ -105,12 +188,35 @@ class MNISTDeepCNN: MNISTLayerCNN{
         super.init(withCommandQueue: commandQueue)
     }
 
+    let threads = MTLSizeMake(16, 16, 1);
 
     override func forward() -> UInt{
         var label = UInt(99)
         autoreleasepool{
+            
+            let threadgroups = MTLSizeMake(
+                (srcImage.texture.width  + threads.width ) / threads.width ,
+                (srcImage.texture.height + threads.height) / threads.height,
+                1);
+            
+            
+//            let descriptor = MTLTextureDescriptor.texture2DDescriptor(
+//                pixelFormat: srcImage.pixelFormat,
+//                width: srcImage.texture.width,
+//                height: srcImage.texture.height, mipmapped: false)
+
             let commandBuffer = commandQueue.makeCommandBuffer()
 
+            let commandEncoder = commandBuffer.makeComputeCommandEncoder()
+
+            commandEncoder.setComputePipelineState(invert.pipeline!)
+            
+            commandEncoder.setTexture(srcImage.texture, at: 0)
+            commandEncoder.setTexture(srcImage.texture, at: 1)
+            
+            commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threads)
+            commandEncoder.endEncoding()
+            
             let finalLayer = MPSImage(device: commandBuffer.device, imageDescriptor: did)
             
             conv1.encode(commandBuffer: commandBuffer, sourceImage: srcImage, destinationImage: c1Image)

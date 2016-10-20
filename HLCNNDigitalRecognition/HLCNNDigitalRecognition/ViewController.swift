@@ -33,6 +33,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        digitView.layer.borderWidth = 1
+        digitView.layer.borderColor = UIColor.gray.cgColor
+        digitView.layer.cornerRadius = 5
+    
+        
         digitView.complete = { (context)  in
             if let context = context {
                 self.detectDigit(context: context)
