@@ -1,14 +1,12 @@
-/*
-    Copyright (C) 2016 Apple Inc. All Rights Reserved.
-    See LICENSE.txt for this sample’s licensing information
-    
-    Abstract:
-    This is the deep layer network where we define and encode the correct layers on a command buffer as needed
-*/
+//
+//  MNISTDeepCNN.swift
+//  HLCNNDigitalRecognition
+//
+//  Created by denis svinarchuk on 20/10/16.
+//  Copyright © 2016 Moscow Exchange. All rights reserved.
+//
 
 import MetalPerformanceShaders
-
-
 
 public class Function {
     
@@ -86,6 +84,14 @@ public class Function {
         }
     }
 }
+
+/*
+ Copyright (C) 2016 Apple Inc. All Rights Reserved.
+ See LICENSE.txt for this sample’s licensing information
+ 
+ Abstract:
+ This is the deep layer network where we define and encode the correct layers on a command buffer as needed
+ */
 
 
 /**
