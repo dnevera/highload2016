@@ -10,25 +10,57 @@ import Foundation
 
 public class TradesReader {
     
+    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     
     let path: String
     let mode: String = "r"
     let file:UnsafeMutablePointer<FILE>
     
-    init(path: String) {
+    var cache_path: String
+    var cache_secids_path: String
+    var cache_file: UnsafeMutablePointer<FILE>? = nil
+    var isFileCached = false
+    
+    public init(path: String, cachable: Bool = true) {
+        
         self.path = path
-        let filePath:NSString = path as NSString
-        self.file = fopen(filePath.utf8String, self.mode)
+        
+        file = fopen((self.path as NSString).utf8String, mode)
+        
+        let url = URL(fileURLWithPath: path)
+        
+        let cacheFolder = "cache"
+        
+        let cacheDirectory = (documentsDirectory as NSString).appendingPathComponent(cacheFolder) as String
+        
+        if (FileManager.default.fileExists(atPath: cacheDirectory) == false) {
+            do {
+                try FileManager.default.createDirectory(atPath: cacheDirectory, withIntermediateDirectories:true, attributes:nil)
+            }
+            catch let error as NSError {
+                NSLog("\(error)")
+            }
+        }
+        
+        cache_path = String(format: "%@/%@/%@.cache", documentsDirectory, cacheFolder, url.lastPathComponent)
+        cache_secids_path = String(format: "%@/%@/%@.secids", documentsDirectory, cacheFolder, url.lastPathComponent)
+        
+        if (FileManager.default.fileExists(atPath: cache_path) == true) {
+            isFileCached = cachable
+        }
+        else {
+            cache_file = fopen((cache_path as NSString).utf8String, "a+")
+        }
     }
     
-    public func readline() -> String? {
+    func readline() -> String? {
         var line:UnsafeMutablePointer<CChar>? = nil
         var linecap:Int = 0
         defer { free(line) }
         return getline(&line, &linecap, file) > 0 ? String(cString:line!) : nil
     }
     
-    public func readtrade(line:String) -> (Trade,String)? {
+    func readtrade(line:String) -> (Trade,String)? {
         
         var json = line.substring(with: line.startIndex..<(line.index(before: line.endIndex)))
         json = json.substring(to: json.index(before: json.endIndex))
@@ -52,7 +84,83 @@ public class TradesReader {
         return nil
     }
     
+    public var secids:[Int:String] = [Int:String]()
+    
+    public var trades:[Trade] {
+        get {
+            var trades:[Trade] = [Trade]()
+            
+            autoreleasepool{
+                
+                if !isFileCached {
+                    
+                    var i = 0
+                    
+                    while let line = self.readline() {
+                        autoreleasepool{
+                            if let (trade,secid) = self.readtrade(line: line){
+                                secids[Int(trade.id)] = secid
+                                
+                                var addr = unsafeBitCast(trade, to: Trade.self)
+                                fwrite(&addr, MemoryLayout<Trade>.size, 1, cache_file)
+                                
+                                i += 1
+                            }
+                        }
+                    }
+                    
+                    let data = NSKeyedArchiver.archivedData(withRootObject: secids)
+                    
+                    do
+                    {
+                        try data.write(to: URL(fileURLWithPath:cache_secids_path), options: .atomic)
+                    }
+                    catch let error as NSError {
+                        print("Error: secids cache \(cache_secids_path) has not been created: \(error)")
+                        remove((cache_path as NSString).utf8String)
+                    }
+                    
+                }
+                else {
+                    if (FileManager.default.fileExists(atPath: cache_secids_path) == true) {
+                        secids = NSKeyedUnarchiver.unarchiveObject(withFile: cache_secids_path) as! [Int:String]
+                    }
+                    else {
+                        print("Error: secids cache \(cache_secids_path) has not been found")
+                    }
+                }
+                
+                do
+                {
+                    
+                    fflush(cache_file)
+                    
+                    let fileDictionary = try FileManager.default.attributesOfItem(atPath: cache_path)
+                    let size = Int(fileDictionary[FileAttributeKey.size] as! NSNumber)
+                    let count = size/MemoryLayout<Trade>.size
+                    
+                    let fd_t = open( cache_path, O_RDONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)
+                    assert(fd_t != -1, "Error: failed to open output file at \""+cache_path+"\"  errno = \(errno)\n")
+                    
+                    let addr = mmap(nil, size, PROT_READ, MAP_FILE | MAP_SHARED, fd_t, 0)
+                    
+                    trades = [Trade](repeating:Trade(), count: count)
+                    
+                    memcpy(&trades, addr, size)
+                    
+                    assert(munmap(addr, size) == 0, "munmap failed with errno = \(errno)")
+                    
+                } catch let error as NSError {
+                    print(error)
+                }
+            }
+            
+            return trades
+        }
+    }
+    
     deinit {
+        fclose(cache_file)
         fclose(file)
     }
 }
