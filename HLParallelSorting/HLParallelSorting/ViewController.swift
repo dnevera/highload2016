@@ -10,11 +10,18 @@ import UIKit
 import Accelerate
 import simd
 
+let runRandom = false
+
 class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        testSortProgression()
+        if runRandom {
+            testRandomProgression()
+        }
+        else {
+            testSortProgression()
+        }
     }
     
     override func didReceiveMemoryWarning() {
