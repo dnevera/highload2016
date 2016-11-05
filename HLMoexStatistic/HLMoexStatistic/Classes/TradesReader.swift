@@ -8,6 +8,12 @@
 
 import Foundation
 
+/**
+ * Читалка сделок. 
+ * Читает все сделки из файла в формате JSON.
+ * Каширует в бинарный формат для последующего "мгновенного" чтения, таким образом можно сравнить затраты на обработку JSON и RAW.
+ *
+ */
 public class TradesReader {
     
     let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]

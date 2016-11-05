@@ -10,6 +10,10 @@ import Foundation
 import Metal
 import Accelerate.vecLib
 
+
+/**
+ * Copy-paste из HLParallelSorting
+ */
 public class Function {
     
     public typealias Execution = ((_ encoder:MTLComputeCommandEncoder) -> Void)

@@ -11,6 +11,9 @@
 
 using namespace metal;
 
+/**
+ * Битоническая сортировка не по "тривиальному" типу данных.
+ */
 kernel void bitonicSortKernel(
                               device Trade      *array       [[buffer(0)]],
                               const device uint &stage       [[buffer(1)]],

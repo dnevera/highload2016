@@ -9,6 +9,10 @@
 #include <metal_stdlib>
 using namespace metal;
 
+///
+/// Утилиты надерганные из различных эквивалетных реализаций для GLSL
+///
+
 
 // A single iteration of Bob Jenkins' One-At-A-Time hashing algorithm.
 inline uint hash( uint x ) {

@@ -12,6 +12,9 @@ import simd
 
 let runRandom = false
 
+//
+// Ничего не рисуем просто выводим в консоль результаты
+//
 class ViewController: UIViewController {
     
     override func viewDidLoad() {

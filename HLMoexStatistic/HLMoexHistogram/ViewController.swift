@@ -10,6 +10,9 @@ import UIKit
 import Accelerate
 import simd
 
+/**
+ * Печатаем в консоль высоту бинов гистораммы
+ */
 class ViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -23,6 +26,9 @@ class ViewController: UIViewController {
     }
 }
 
+/**
+ * Гистограмма распределения объемов сделок по часам внутри торговой сессии.
+ */
 public class TradesHistogram {
     
     public let function:Function
@@ -34,8 +40,14 @@ public class TradesHistogram {
         }
     }
     
+    ///
+    /// Считаем что сессия длится 10 часов (так и есть)
+    ///
     public var histogram:Array<simd.uint> = Array<simd.uint>(repeating:0, count:10)
 
+    ///
+    /// Исходные сделки
+    ///
     public var trades:[Trade] = [Trade]() {
         didSet{
             if trades.count>0 {
@@ -62,10 +74,21 @@ public class TradesHistogram {
             
             function.execute(
                 closure: { (commandEncoder) in
+                    
+                    //
+                    // передаем указаель на память с массивом сделок
+                    //
                     commandEncoder.setBuffer(buffer, offset: 0, at: 0)
+                    
+                    //
+                    // Сюда получаем бины
+                    //
                     commandEncoder.setBuffer(histogramBuffer, offset: 0, at: 1)
                 },
                 complete: { (commandEncoder) in
+                    //
+                    // Копируем бины взад, в память CPU
+                    //
                     if let h = histogramBuffer {
                         memcpy(&histogram, h.contents(), h.length)
                     }
@@ -83,31 +106,27 @@ public class TradesHistogram {
 
 public func test() {
     
-    if let path = Bundle.main.path(forResource: "trades_stock_first", ofType: "json") {
+    let file = "trades_stock"
+    
+    if let path = Bundle.main.path(forResource: file, ofType: "json") {
         
-        var i = 0
-        var trades:[Trade] = [Trade]()
-        var secids:[Int:String] = [Int:String]()
-        
-        autoreleasepool{
-            let reader = TradesReader(path: path)
-            while let line = reader.readline() {
-                autoreleasepool{
-                    if let (trade,secid) = reader.readtrade(line: line){
-                        secids[Int(trade.id)] = secid
-                        trades.append(trade)
-                        i += 1
-                    }
-                }
-            }
-        }
-        
+        let reader = TradesReader(path: path)
         let timeTradesHistogram = TradesHistogram()
-        timeTradesHistogram.trades = trades
+        timeTradesHistogram.trades = reader.trades
         timeTradesHistogram.run()
 
-        for b in timeTradesHistogram.histogram {
-            print(b)
+        let histogram = timeTradesHistogram.histogram
+        let m         = Float(histogram.max()!)
+        var i         = 10
+        
+        for b in histogram {
+            let length = Int(Float(b)/m * 64)
+            print("\(i):00 | ",separator: "", terminator: "")
+            for _ in 0...length {
+                print("*", separator: "", terminator: "")
+            }
+            print("")
+            i += 1
         }
 
     }

@@ -11,9 +11,14 @@ import Accelerate
 import simd
 
 
+/**
+ *
+ * Генератор массива случайных чисел.
+ */
 public class RandomNoise:ArrayOperator{
     public init(count:Int = 512){
         
+        // Имя метода в шейдере
         super.init(name: "randomKernel")
         defer{
             self.count = count
@@ -26,10 +31,14 @@ public class RandomNoise:ArrayOperator{
         }
     }
     
+    // Инициализируем генератор текущим значением времени
     lazy var timerBuffer:MTLBuffer? = self.function.device?.makeBuffer(
         length: MemoryLayout<Float>.size,
         options: .cpuCacheModeWriteCombined)
     
+    ///
+    /// Передаем в контекст ядра значение исходного рандомизатора
+    ///
     public override func configure(commandEncoder: MTLComputeCommandEncoder) {
         let timer  = UInt32(modf(NSDate.timeIntervalSinceReferenceDate).0)
         var rand = Float(arc4random_uniform(timer))/Float(timer)

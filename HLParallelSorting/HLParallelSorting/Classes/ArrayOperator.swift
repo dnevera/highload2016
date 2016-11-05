@@ -9,17 +9,36 @@
 import Foundation
 import Accelerate
 
+/*
+ * Оператор над массивом
+ */
 public class ArrayOperator {
     
+    ///
+    /// Ядерная функция
+    ///
     public let function:Function
     
+    ///
+    /// Сам массив над которым творим безобразия.
+    /// Для упрощения восприятия массив представлен типовым Array<Float>.
+    /// Однако для ускорения операций обмена данными между хостовой памятью и памтью GPU,
+    /// можно выделить класс, например GpuArray, с прямым выделением памяти в GPU без дополнительного
+    /// динамического копирования.
+    ///
     public var array = [Float]() {
         didSet {
+            
+            ///
+            /// Пока же, без потери общности, просто копируем данные в GPU, при каждом обновлении
+            /// массива
+            ///
+            
             if array.count>0 {
 
                 #if os(OSX)
-                    //let options:MTLResourceOptions = .storageModeManaged
-                    let options:MTLResourceOptions = .storageModeShared
+                    let options:MTLResourceOptions = .storageModeManaged
+                    //let options:MTLResourceOptions = .storageModeShared
                 #else
                     let options:MTLResourceOptions = .storageModeShared
                 #endif
@@ -35,10 +54,6 @@ public class ArrayOperator {
                     bytes: &size,
                     length: MemoryLayout.size(ofValue: size),
                     options: .cpuCacheModeWriteCombined)
-                
-                //let blit = function.commandBuffer?.makeBlitCommandEncoder()
-                //blit?.synchronize(resource: arrayBuffer!)
-                //blit?.endEncoding()
             }
         }
     }
@@ -47,37 +62,40 @@ public class ArrayOperator {
         function = Function(name: name)
     }
     
+    ///
+    /// Расширение конфигурации запуска ядерных функций
+    ///
     public func configure(commandEncoder:MTLComputeCommandEncoder){}
 
+    
+    ///
+    /// Если данные необходимо вернуть из памяти GPU.
+    /// Но помним, что вариант прямого доступа к памяти экономичнее.
+    ///
     public func flush() {
         guard let buffer = arrayBuffer else { return }
         
-        //let blit = function.commandBuffer?.makeBlitCommandEncoder()
-        //blit?.synchronize(resource: buffer)
-        //blit?.endEncoding()
-
-        //let pointer = OpaquePointer(buffer.contents())
-        
         //
-        // V.1
+        // Простой вариант копирования данных назад в память CPU, если таки такое копирование неообходимо.
         //
-        //let bsize   = MemoryLayout<Float>.size * array.count
-        //memset(&array, 0, bsize)
         memcpy(&array, buffer.contents(), buffer.length)
         
+        // 
+        // Вариант копирования данных через BLAS методы
         //
-        // V.2
+        // cblas_scopy(Int32(array.count), UnsafePointer<Float>(pointer), 1, &array, 1)
+        
         //
-        //vDSP_vclr(&array, 1, vDSP_Length(array.count))
+        // Вариант копирования через DSP, для некоторых устройств и при некотором объеме данных 
+        // может оказаться экономичнее предыдущих
         //
-        // V.2.1
-        //
-        //cblas_scopy(Int32(array.count), UnsafePointer<Float>(pointer), 1, &array, 1)
-        //
-        //
-        //vDSP_vadd(UnsafePointer<Float>(pointer), 1, array, 1, &array, 1, vDSP_Length(array.count))
+        // vDSP_vclr(&array, 1, vDSP_Length(array.count))
+        // vDSP_vadd(UnsafePointer<Float>(pointer), 1, array, 1, &array, 1, vDSP_Length(array.count))
     }
     
+    ///
+    /// Запускаем операцию
+    ///
     public func run(complete:Bool = true){
         if let buffer = arrayBuffer {
             

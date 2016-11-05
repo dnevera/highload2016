@@ -19,6 +19,9 @@ extension Bool {
     }
 }
 
+/**
+ * Классическая битоническая сортировка на CPU с распараллеливанием на потоках
+ */
 public class BitonicCpuSort {
     
     public var array = [Float]()

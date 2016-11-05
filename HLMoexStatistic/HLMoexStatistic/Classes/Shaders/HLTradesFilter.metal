@@ -11,6 +11,9 @@
 
 using namespace metal;
 
+/**
+ * Фильтр по времени 10:00-10:30
+ */
 kernel void timeFilterKernel(
                               device Trade *trades [[buffer(0)]],
                               uint tid             [[thread_index_in_threadgroup]],

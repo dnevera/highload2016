@@ -13,11 +13,28 @@ import Foundation
 import Accelerate
 import simd
 
+
+/**
+ * Оперетор на сделками MOEX
+ * Сырые данные можно получить по http://moex.com/ru/marketdata/archive/
+ */
 public class TradesOperator {
     
+    ///
+    /// Фильтр сделок по времени
+    ///
     public let timeFilterKernel:Function
+    
+    ///
+    /// Сортировка по лучшим по битонике
+    ///
     public let bitonicSortKernel:Function
     
+    /// Массив сделок.
+    /// Структура определена в заголовке общем для шейдеров и хостовой реализации HLCommon.h
+    ///
+    /// Очевидно, что можно этап дополнительного копирования полностью убрать, что еще больше сократит издержки.
+    ///
     var trades:[Trade] = [Trade]() {
         didSet{
             if trades.count>0 {
@@ -29,6 +46,10 @@ public class TradesOperator {
         }
     }
     
+    ///
+    /// Получить лучшие 10 сделок дня в определенном диапазоне времени (статически прописан в шейдере, 
+    /// но можно, очевидно, сделать параметризированным)
+    ///
     public var thebest10:[Trade] {
         get {
             let count = 10
@@ -58,6 +79,10 @@ public class TradesOperator {
         
         if let buffer = buffer {
             
+            //
+            // Сначала запускаем фильтр по времени
+            //
+            
             if trades.count < timeFilterKernel.maxThreads {
                 timeFilterKernel.threads.width = trades.count
                 timeFilterKernel.threadgroups.width = 1
@@ -72,6 +97,9 @@ public class TradesOperator {
                     commandEncoder.setBuffer(buffer, offset: 0, at: 0)
                 },
                 complete: { (commandEncoder) in
+                    /// 
+                    /// после завершения сортировки запускаем шаг битонической сортировки
+                    ///
                     bitonicSort(filteredBuffer: buffer)
             })
         }
@@ -95,6 +123,9 @@ public class TradesOperator {
         commandEncoder.setBuffer(directionBuffer,   offset: 0, at: 3)
     }
     
+    //
+    // Полностью аналогично HLParallelSorting, с одним отличием: тип данных не простой float, а структура Trade
+    //
     func bitonicSort(filteredBuffer:MTLBuffer) {
         let arraySize = simd.uint(trades.count)
         let numStages = Int(log2(Float(arraySize)))

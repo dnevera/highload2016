@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * Классическая быстрая сортирвка на CPU
+ */
 func quicksort<T: Comparable>(_ a: [T]) -> [T] {
     guard a.count > 1 else { return a }
     let x = a[a.count/2]

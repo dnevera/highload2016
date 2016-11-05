@@ -13,6 +13,9 @@ import Foundation
 import Accelerate
 import simd
 
+/**
+ * Выводим в консоль тесты.
+ */
 class ViewController: UIViewController {
     
     override func viewDidLoad() {

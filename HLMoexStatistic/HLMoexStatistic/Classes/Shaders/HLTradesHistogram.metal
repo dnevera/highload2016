@@ -10,6 +10,11 @@
 #include "HLCommon.h"
 using namespace metal;
 
+/**
+ * Реализуем без всяких ухищрений с локальной памятью. 
+ * GPU A8 и выше достаточно хорошо поддерживают атомарные операции для исключения существенных задержек для доступа
+ * к одним и тем же банкам памяти.
+ */
 kernel void tradesHistogramKernel(
                                   device Trade         *trades    [[buffer(0)]],
                                   device atomic_uint   *histogram [[buffer(1)]],
